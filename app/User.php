@@ -123,7 +123,7 @@ class User extends Authenticatable
     public function updateUser(array $data)
     {
         $this->name = $data['name'];
-        $this->email = $data['email'];
+        //$this->email = $data['email'];
 
         if(!$this->save()) {
             throw new CannotBeExecutedException();
@@ -183,5 +183,29 @@ class User extends Authenticatable
 
         // Assign a new role
         $this->assignRole($role);
+
+        // Set preferred working hours
+        $setting = new UserSetting;
+
+        $setting->user_id = $this->id;
+        $setting->key = 'preferred_working_hour_per_day';
+        $setting->value = (int) $data['preferred_working_hour_per_day'];
+        $setting->save();
+    }
+
+    /**
+     * Get preferred working hours of the user
+     * @return int
+     */
+    public function getPreferredHours()
+    {
+        if(!$setting = $this->settings()
+            ->where(['key' => 'preferred_working_hour_per_day'])
+            ->get()
+            ->first()) {
+            return 0;
+        }
+
+        return (int) $setting->value;
     }
 }

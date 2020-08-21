@@ -54,10 +54,10 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name'      => 'required|string|max:255',
-            'email'     => [
+            /*'email'     => [
                 'required',
                 Rule::unique('users')->ignore($this->getTargetUserId()),
-            ],
+            ],*/
             'role'      => 'nullable|string',
             'preferred_working_hour_per_day'    => 'required|integer|gt:0|lt:1440', //max 23:59 hours in minutes
         ];

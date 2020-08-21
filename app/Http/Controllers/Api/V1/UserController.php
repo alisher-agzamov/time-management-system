@@ -36,7 +36,12 @@ class UserController extends Controller
     {
         $user = User::find($request->getTargetUserId());
 
-        return response()->success($user);
+        return response()->success([
+            'name'  => $user->name,
+            'email' => $user->email,
+            'role'  => $user->getRoleNames()->first(),
+            'preferred_working_hour_per_day'    => $user->getPreferredHours()
+        ]);
     }
 
     /**

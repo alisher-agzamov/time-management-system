@@ -26,7 +26,8 @@ class SignupAuthRequest extends FormRequest
         return [
             'name'      => 'required|string|max:255',
             'email'     => 'required|string|email|unique:users',
-            'password'  => 'required|string|confirmed'
+            'password'  => 'required|string|confirmed',
+            'preferred_working_hour_per_day'    => 'required|integer|gt:0|lt:1440', //max 23:59 hours in minutes
         ];
     }
 }
