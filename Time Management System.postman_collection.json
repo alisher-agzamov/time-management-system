@@ -1,0 +1,676 @@
+{
+	"info": {
+		"_postman_id": "1406bd64-88f5-4c88-b7e2-622063cc6d7f",
+		"name": "Time Management System",
+		"description": "Simple Time Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get user tasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{api_version}}/tasks?date_from=2020-08-01&date_to=2020-08-30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2020-08-01"
+								},
+								{
+									"key": "date_to",
+									"value": "2020-08-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{api_version}}/tasks/36",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tasks",
+								"36"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Task number 12",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Description of the task number one",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2020-08-24",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "125",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/tasks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit existing task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/tasks/28?title=Task number 10&description=updated description&date=2020-08-22&duration=60",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tasks",
+								"28"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Task number 10"
+								},
+								{
+									"key": "description",
+									"value": "updated description"
+								},
+								{
+									"key": "date",
+									"value": "2020-08-22"
+								},
+								{
+									"key": "duration",
+									"value": "60"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete the task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{api_version}}/tasks/18",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tasks",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export user tasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{api_version}}/tasks/me/export?date_from=2020-08-01&date_to=2020-08-30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tasks",
+								"me",
+								"export"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2020-08-01"
+								},
+								{
+									"key": "date_to",
+									"value": "2020-08-30"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "SignUp",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{user_1_name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{user_1_email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{user_1_password}}",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "{{user_1_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{user_1_email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{user_1_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/user/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit existing user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/user/me?name=User 2name&preferred_working_hour_per_day=60",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"user",
+								"me"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "User 2name"
+								},
+								{
+									"key": "email",
+									"value": "blah3@test.com",
+									"disabled": true
+								},
+								{
+									"key": "preferred_working_hour_per_day",
+									"value": "60"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"url": {
+							"raw": "{{url}}{{api_version}}/auth/logout",
+							"host": [
+								"{{url}}{{api_version}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/{{api_version}}/user/8",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"user",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
