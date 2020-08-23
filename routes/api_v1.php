@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:api']], function() {
 Route::group(['middleware' => ['auth:api', 'can:tasks']], function() {
     Route::get('tasks', 'Api\V1\TaskController@index');
     Route::get('tasks/{task}', 'Api\V1\TaskController@get');
+    Route::get('tasks/{id}/export', 'Api\V1\TaskController@export');
     Route::post('tasks', 'Api\V1\TaskController@store');
     Route::put('tasks/{task}', 'Api\V1\TaskController@update');
     Route::delete('tasks/{task}', 'Api\V1\TaskController@delete');

@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Api\V1;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexTaskRequest extends FormRequest
+class ExportTaskRequest extends FormRequest
 {
     /**
      * Get target user ID
@@ -12,7 +13,11 @@ class IndexTaskRequest extends FormRequest
      */
     public function getTargetUserId()
     {
-        return $this->get('user_id', $this->user()->id);
+        if($this->route('id') == 'me') {
+            return $this->user()->id;
+        }
+
+        return $this->route('id');
     }
 
     /**
@@ -22,6 +27,10 @@ class IndexTaskRequest extends FormRequest
      */
     public function authorize()
     {
+        if(!$user = User::find($this->getTargetUserId())) {
+            return false;
+        }
+
         // If user_id is not empty it means admin views user's tasks
         // and we need to check permissions
         if(!empty($this->get('user_id'))) {

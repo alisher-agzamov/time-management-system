@@ -114,4 +114,46 @@ class Task extends Model
         }
     }
 
+    /**
+     * Get grouped user tasks
+     * @param User $user
+     * @param $dateFrom
+     * @param $dateTo
+     * @return array
+     */
+    public static function getGroupedUserTasks(User $user, $dateFrom, $dateTo)
+    {
+        $tasks = $user->tasks()
+            ->whereBetween('date', [$dateFrom, $dateTo])
+            ->orderBy('date', 'DESC')
+            ->get()
+            ->toArray();
+
+        $groupedTasks = [
+            'tasks'             => [],
+            'total_duration'    => 0
+        ];
+
+        $preferredHours = $user->getPreferredHours();
+
+        // Group tasks with date index
+        foreach ($tasks as $task) {
+            $groupedTasks['tasks'][$task['date']]['tasks'][] = $task;
+
+            if(empty($groupedTasks['tasks'][$task['date']]['total_duration'])) {
+                $groupedTasks['tasks'][$task['date']]['total_duration'] = 0;
+            }
+
+            // total group duration
+            $groupedTasks['tasks'][$task['date']]['total_duration'] += $task['duration'];
+
+            // calculate under or over worked hours per day
+            $groupedTasks['tasks'][$task['date']]['covered_day_hours'] = $groupedTasks['tasks'][$task['date']]['total_duration'] >= $preferredHours;
+
+            // total duration
+            $groupedTasks['total_duration'] += $task['duration'];
+        }
+
+        return $groupedTasks;
+    }
 }

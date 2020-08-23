@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\DeleteTaskRequest;
+use App\Http\Requests\Api\V1\ExportTaskRequest;
 use App\Http\Requests\Api\V1\GetTaskRequest;
 use App\Http\Requests\Api\V1\IndexTaskRequest;
 use App\Http\Requests\Api\V1\StoreTaskRequest;
@@ -23,12 +24,14 @@ class TaskController extends Controller
         $user = User::find($request->getTargetUserId());
 
         //TODO: pagination
-        $tasks = $user->tasks()
-            ->orderBy('date', 'DESC')
-            ->get()
-            ->toArray();
 
-        return response()->success($tasks);
+        return response()->success(
+            Task::getGroupedUserTasks(
+                $user,
+                $request->get('date_from'),
+                $request->get('date_to')
+            )
+        );
     }
 
     /**
@@ -82,6 +85,31 @@ class TaskController extends Controller
         }
 
         return response()->noContent();
+    }
+
+    /**
+     * Export filtered tasks
+     * @param ExportTaskRequest $request
+     * @return mixed
+     */
+    public function export(ExportTaskRequest $request)
+    {
+        $user = User::find($request->getTargetUserId());
+
+        $tasks = Task::getGroupedUserTasks(
+            $user,
+            $request->get('date_from'),
+            $request->get('date_to')
+        );
+
+        $dataRange = implode(' - ', $request->only(['date_from', 'date_to']));
+
+        return response()->streamDownload(function () use ($tasks, $dataRange)  {
+            echo view('export', [
+                'tasks'     => $tasks,
+                'dataRange' => $dataRange
+            ]);
+        }, 'export.html');
     }
 }
 

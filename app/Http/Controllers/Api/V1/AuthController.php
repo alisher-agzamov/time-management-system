@@ -36,7 +36,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if(!Auth::attempt($credentials)) {
-            return response()->accessDenied();
+            return response()->accessDenied('exceptions.incorrect_email_or_password');
         }
 
         $token = $request->user()
@@ -45,8 +45,7 @@ class AuthController extends Controller
         return response()->success([
             'access_token'  => $token->accessToken,
             'token_type'    => 'Bearer',
-            'expires_at'    => Carbon::parse($token->token->expires_at)->toDateTimeString(),
-            'user_role'     => $request->user()->getRoleNames()->first()
+            'expires_at'    => Carbon::parse($token->token->expires_at)->toDateTimeString()
         ]);
 
     }
