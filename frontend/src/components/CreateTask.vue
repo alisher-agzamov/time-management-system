@@ -14,17 +14,17 @@
       </div>
 
       <div class="form-group">
-        <label for="task-title">{{ $t("create_task.form_field_title") }}</label>
+        <label for="task-title">{{ $t("create_task.form_field_title") }}: <span class="required">*</span></label>
         <input v-model="task.title" type="text" class="form-control" id="task-title" :placeholder="$t('create_task.form_field_title_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="task-description">{{ $t("create_task.form_field_description") }}</label>
+        <label for="task-description">{{ $t("create_task.form_field_description") }}: <span class="required">*</span></label>
         <textarea v-model="task.description" class="form-control" id="task-description" :placeholder="$t('create_task.form_field_description_placeholder')"></textarea>
       </div>
 
       <div class="form-group">
-        <label for="task-date">{{ $t("create_task.form_field_date") }}</label>
+        <label for="task-date">{{ $t("create_task.form_field_date") }}: <span class="required">*</span></label>
 
 
         <div class="col-md-4 ml-0 pl-0">
@@ -34,7 +34,7 @@
 
       <div class="form-group">
         <div>
-          <label for="register-preferred-working-hour-per-day">{{ $t("create_task.form_field_duration") }}</label>
+          <label for="register-preferred-working-hour-per-day">{{ $t("create_task.form_field_duration") }}: <span class="required">*</span></label>
         </div>
         <select v-model="hours" class="custom-select my-1 mr-sm-2 w-25" id="register-preferred-working-hour-per-day">
           <option v-for="n in 24" :value="n - 1">{{ n - 1 }}</option>
@@ -170,7 +170,7 @@
                         this.$Progress.finish();
                         this.showNotification = true;
 
-                        setTimeout(() => this.$router.push('/tasks'), 2000);
+                        setTimeout(() => this.$router.push('/tasks'), 1000);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });

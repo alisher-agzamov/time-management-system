@@ -14,27 +14,27 @@
       </div>
 
       <div class="form-group">
-        <label for="register-name">{{ $t("signup.form_field_name") }}</label>
+        <label for="register-name">{{ $t("signup.form_field_name") }}: <span class="required">*</span></label>
         <input v-model="user.name" type="text" class="form-control" id="register-name" :placeholder="$t('signup.form_field_name_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="register-email">{{ $t("signup.form_field_email") }}</label>
+        <label for="register-email">{{ $t("signup.form_field_email") }}: <span class="required">*</span></label>
         <input v-model="user.email" type="email" class="form-control" id="register-email" aria-describedby="emailHelp" :placeholder="$t('signup.form_field_email_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="register-password">{{ $t("signup.form_field_password") }}</label>
+        <label for="register-password">{{ $t("signup.form_field_password") }}: <span class="required">*</span></label>
         <input v-model="user.password" type="password" class="form-control" id="register-password" :placeholder="$t('signup.form_field_password_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="register-password-confirmation">{{ $t("signup.form_field_password_confirmation") }}</label>
+        <label for="register-password-confirmation">{{ $t("signup.form_field_password_confirmation") }}: <span class="required">*</span></label>
         <input v-model="user.password_confirmation" type="password" class="form-control" id="register-password-confirmation" :placeholder="$t('signup.form_field_password_confirmation_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="register-preferred-working-hour-per-day">{{ $t("signup.form_field_preferred_working_hours") }}</label> <br />
+        <label for="register-preferred-working-hour-per-day">{{ $t("signup.form_field_preferred_working_hours") }}: <span class="required">*</span></label> <br />
         <select v-model="hours" class="custom-select my-1 mr-sm-2 w-25" id="register-preferred-working-hour-per-day">
           <option v-for="n in 24" :value="n - 1">{{ n - 1 }}</option>
         </select>

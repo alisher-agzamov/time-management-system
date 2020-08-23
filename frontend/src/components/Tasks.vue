@@ -6,7 +6,6 @@
       {{ $t("tasks.notification_deleted") }}
     </div>
 
-
     <div class="row mb-3">
       <div class="col-sm text-left">
         <router-link class="btn btn-primary" :to="{ name: 'CreateTask'}">{{ $t("tasks.create") }}</router-link>
@@ -40,7 +39,12 @@
       </div>
     </div>
 
-    <table class="table text-left">
+
+    <div class="alert alert-secondary mt-5" role="alert" v-if="tasksNotFoundNotification">
+      {{ $t("tasks.notification_not_found") }}
+    </div>
+
+    <table class="table text-left" v-if="!tasksNotFoundNotification">
       <thead class="">
       <tr>
         <th scope="col">Title</th>
@@ -104,6 +108,7 @@
                 },
                 date: new Date(),
                 showNotification: false,
+                tasksNotFoundNotification: false,
                 tasks: [],
                 user: this.$store.state.user,
                 filter: {
@@ -134,6 +139,8 @@
                     .then(response => {
                         this.$Progress.finish();
                         this.tasks = response.data.result;
+                        this.tasksNotFoundNotification = !Object.keys(this.tasks.tasks).length;
+                        console.log(Object.keys(this.tasks.tasks).length);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     })

@@ -14,6 +14,7 @@
   "tasks": {
     "page_title": "Tasks",
     "notification_deleted": "The task has been successfully deleted.",
+    "notification_not_found": "Tasks are not found.",
     "create": "Create a new task",
     "date_filter": "Date filter",
     "export": "Export",

@@ -14,12 +14,12 @@
       </div>
 
       <div class="form-group">
-        <label for="login-email">{{ $t("login.form_field_email") }}</label>
+        <label for="login-email">{{ $t("login.form_field_email") }}: <span class="required">*</span></label>
         <input v-model="user.email" type="email" class="form-control" id="login-email" aria-describedby="emailHelp" :placeholder="$t('login.form_field_email_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="login-password">{{ $t("login.form_field_password") }}</label>
+        <label for="login-password">{{ $t("login.form_field_password") }}: <span class="required">*</span></label>
         <input v-model="user.password" type="password" class="form-control" id="login-password" :placeholder="$t('login.form_field_password_placeholder')">
       </div>
 
