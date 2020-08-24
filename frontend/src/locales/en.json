@@ -8,9 +8,13 @@
     "signup": "Signup",
     "dashboard": "Dashboard",
     "tasks": "My Tasks",
+    "user_tasks": "Tasks",
     "users": "Users",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "edit": "Edit",
+    "create": "Create",
+    "home": "Home"
   },
   "tasks": {
     "page_title": "Tasks",
@@ -139,6 +143,7 @@
     "form_field_preferred_working_hours": "Preferred Working Hour Per Day",
     "notification_deleted": "The user has been successfully deleted.",
     "deletion_confirm": "Do you really want to delete?",
+    "button_tasks": "Tasks",
     "button_edit": "Edit",
     "button_delete": "Delete"
   },

@@ -22,6 +22,13 @@
 
       <div class="mt-3">
         <router-link
+          class="btn btn-info"
+          :to="{ name: 'UserTasks', params: { id: this.$route.params.id }}">
+
+          {{ $t("show_user.button_tasks") }}
+        </router-link>
+
+        <router-link
           class="btn btn-primary"
           :to="{ name: 'EditUser', params: { id: this.$route.params.id }}">
           <font-awesome-icon icon="edit" />
@@ -48,6 +55,8 @@
             if(!this.$route.params.id) {
                 this.$router.push('/users');
             }
+
+            this.$store.state.page_title = '';
         },
         data() {
             return {
@@ -65,7 +74,7 @@
                     .then(response => {
                         this.$Progress.finish();
                         this.user = response.data.result;
-                        console.log(this.user);
+                        this.$store.state.page_title = this.user.name;
                     }, (response) => {
                         this.$Progress.fail()
                     });

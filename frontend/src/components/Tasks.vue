@@ -64,7 +64,8 @@
 
         <tr v-for="item in items.tasks">
           <td>
-            <router-link :class="renderItemClass(items.covered_day_hours)" :to="{ name: 'ShowTask', params: { id: item.id }}">{{ item.title }}</router-link>
+            <router-link v-if="!isAdminAction" :class="renderItemClass(items.covered_day_hours)" :to="{ name: 'ShowTask', params: { id: item.id }}">{{ item.title }}</router-link>
+            <router-link v-else :class="renderItemClass(items.covered_day_hours)" :to="{ name: 'ShowUserTask', params: { id: item.id, user_id: $route.params.id }}">{{ item.title }}</router-link>
           </td>
           <td>{{renderDuration(item.duration)}}</td>
           <td>

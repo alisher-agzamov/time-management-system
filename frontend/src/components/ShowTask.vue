@@ -21,9 +21,16 @@
       </div>
 
       <div class="mt-3">
-        <router-link
+        <router-link  v-if="!isAdminAction"
           class="btn btn-primary"
           :to="{ name: 'EditTask', params: { id: this.$route.params.id }}">
+          <font-awesome-icon icon="edit" />
+          {{ $t("show_task.button_edit") }}
+        </router-link>
+
+        <router-link v-else
+          class="btn btn-primary"
+           :to="{ name: 'EditUserTask', params: { id: this.$route.params.id, user_id: this.$route.params.user_id }}">
           <font-awesome-icon icon="edit" />
           {{ $t("show_task.button_edit") }}
         </router-link>
@@ -48,15 +55,22 @@
             if(!this.$route.params.id) {
                 this.$router.push('/tasks');
             }
+
+            this.$store.state.page_title = '';
         },
         data() {
             return {
+                isAdminAction: false, // is the current action doing under admin
                 showNotification: false,
                 task: {}
             };
         },
         mounted() {
             this.loadTask();
+
+            if(this.$route.params.user_id) {
+                this.isAdminAction = true;
+            }
         },
         methods: {
             loadTask: function() {
@@ -65,6 +79,7 @@
                     .then(response => {
                         this.$Progress.finish();
                         this.task = response.data.result;
+                        this.$store.state.page_title = this.task.title;
                     }, (response) => {
                         this.$Progress.fail()
                     });
@@ -79,7 +94,7 @@
                         this.$Progress.finish();
 
                         this.showNotification = true;
-                        setTimeout(() => this.$router.push('/tasks'), 1000);
+                        setTimeout(() => this.$router.go(-1), 1000);
                     }, (response) => {
                         this.$Progress.fail()
                     });

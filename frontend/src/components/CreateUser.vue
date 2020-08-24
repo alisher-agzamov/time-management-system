@@ -55,7 +55,7 @@
       </div>
 
       <div class="form-group text-right">
-        <router-link class="btn btn-outline-secondary" :to="{ name: 'Users'}">{{ $t("create_user.button_cancel") }}</router-link>
+        <button class="btn btn-outline-secondary" @click="$router.go(-1)">{{ $t("create_user.button_cancel") }}</button>
 
         <button type="submit" class="btn btn-primary"
                 @click="createUser()"

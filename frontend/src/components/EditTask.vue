@@ -47,7 +47,7 @@
       </div>
 
       <div class="form-group text-right">
-        <router-link class="btn btn-outline-secondary" :to="{ name: 'Tasks'}">{{ $t("edit_task.button_cancel") }}</router-link>
+        <button class="btn btn-outline-secondary" @click="$router.go(-1)">{{ $t("edit_task.button_cancel") }}</button>
 
         <button type="submit" class="btn btn-primary"
                 @click="updateTask()"
@@ -98,6 +98,8 @@
             if(!this.$route.params.id) {
                 this.$router.push('/tasks');
             }
+
+            this.$store.state.page_title = '';
         },
         mounted() {
             this.$Progress.start();
@@ -105,6 +107,7 @@
                 .then(response => {
                     this.$Progress.finish();
                     this.task = response.data.result;
+                    this.$store.state.page_title = this.task.title;
                 }, (response) => {
                     this.$Progress.fail()
                 })
@@ -184,7 +187,7 @@
                         this.$Progress.finish();
                         this.showNotification = true;
 
-                        setTimeout(() => this.$router.push('/tasks'), 1000);
+                        setTimeout(() => this.$router.go(-1), 1000);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });

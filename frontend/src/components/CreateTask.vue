@@ -47,7 +47,7 @@
       </div>
 
       <div class="form-group text-right">
-        <router-link class="btn btn-outline-secondary" :to="{ name: 'Tasks'}">{{ $t("create_task.button_cancel") }}</router-link>
+        <button class="btn btn-outline-secondary" @click="$router.go(-1)">{{ $t("create_task.button_cancel") }}</button>
 
         <button type="submit" class="btn btn-primary"
                 @click="createTask()"
@@ -182,7 +182,7 @@
                         this.$Progress.finish();
                         this.showNotification = true;
 
-                        setTimeout(() => this.$router.push('/tasks'), 1000);
+                        setTimeout(() => this.$router.go(-1), 1000);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });

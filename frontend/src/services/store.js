@@ -17,7 +17,7 @@ export default new Vuex.Store({
       preferred_working_hour_per_day: 0
     },
     isAuthenticated: false,
-    count: 0
+    page_title: null
   },
   mutations: {
     // Extract data from the local storage

@@ -45,7 +45,7 @@
       </div>
 
       <div class="form-group text-right">
-        <router-link class="btn btn-outline-secondary" :to="{ name: 'Users'}">{{ $t("edit_user.button_cancel") }}</router-link>
+        <button class="btn btn-outline-secondary" @click="$router.go(-1)">{{ $t("edit_user.button_cancel") }}</button>
 
         <button type="submit" class="btn btn-primary"
                 @click="updateUserProfile()"
@@ -82,6 +82,8 @@
             if(!this.$route.params.id) {
                 this.$router.push('/users');
             }
+
+            this.$store.state.page_title = '';
         },
         computed: {
             hours: {
@@ -175,6 +177,7 @@
                     .then(response => {
                         this.$Progress.finish();
                         this.user = response.data.result;
+                        this.$store.state.page_title = this.user.name;
 
                     }, (response) => {
                         this.handleApiErrors(response.data);
