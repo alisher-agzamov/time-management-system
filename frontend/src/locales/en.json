@@ -7,7 +7,7 @@
     "login": "Login",
     "signup": "Signup",
     "dashboard": "Dashboard",
-    "tasks": "Tasks",
+    "tasks": "My Tasks",
     "users": "Users",
     "profile": "Profile",
     "logout": "Logout"
@@ -124,6 +124,15 @@
     "form_field_preferred_working_hours_error": "Please, fill the Preferred Working Hour Per Day field.",
     "button_update": "Update",
     "button_cancel": "Cancel"
+  },
+  "show_user": {
+    "page_title": "Show the user data",
+    "form_field_name": "Full name",
+    "form_field_email": "Email address",
+    "form_field_role": "Role",
+    "form_field_preferred_working_hours": "Preferred Working Hour Per Day",
+    "button_edit": "Edit",
+    "button_delete": "Delete"
   },
   "login": {
     "page_title": "Login",

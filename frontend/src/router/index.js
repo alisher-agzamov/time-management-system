@@ -13,6 +13,7 @@ import Tasks from '@/components/Tasks'
 import ShowTask from '@/components/ShowTask'
 import EditTask from '@/components/EditTask'
 import CreateTask from '@/components/CreateTask'
+import ShowUser from '@/components/ShowUser'
 
 Vue.use(Router)
 
@@ -82,6 +83,11 @@ export default new Router({
       path: '/users/edit/:id',
       name: 'EditUser',
       component: EditUser
-    }
+    },
+    {
+      path: '/users/:id',
+      name: 'ShowUser',
+      component: ShowUser
+    },
   ]
 })

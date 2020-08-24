@@ -83,6 +83,32 @@
                                 page: '/logout'
                             }
                         ]
+                    },
+                    admin: {
+                        left: [
+                            {
+                                text: 'navigation.dashboard',
+                                page:'/dashboard'
+                            },
+                            {
+                                text: 'navigation.tasks',
+                                page:'/tasks'
+                            },
+                            {
+                                text: 'navigation.users',
+                                page:'/users'
+                            }
+                        ],
+                        right: [
+                            {
+                                text: 'navigation.profile',
+                                page: '/profile'
+                            },
+                            {
+                                text: 'navigation.logout',
+                                page: '/logout'
+                            }
+                        ]
                     }
                 }
 

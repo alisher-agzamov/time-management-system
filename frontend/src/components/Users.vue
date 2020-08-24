@@ -28,7 +28,7 @@
       </thead>
       <tr v-for="item in users">
         <td>
-          <router-link :to="{ name: 'ShowTask', params: { id: item.id }}">{{ item.name }}</router-link>
+          <router-link :to="{ name: 'ShowUser', params: { id: item.id }}">{{ item.name }}</router-link>
         </td>
         <td>{{ item.email }}</td>
         <td>{{ item.role }}</td>

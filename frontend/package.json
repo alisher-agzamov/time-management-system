@@ -20,7 +20,6 @@
     "popper.js": "^1.16.1",
     "vue": "^2.5.2",
     "vue-bootstrap-datetimepicker": "^5.0.1",
-    "vue-confirm-dialog": "^1.0.2",
     "vue-i18n": "^8.21.0",
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.1",
