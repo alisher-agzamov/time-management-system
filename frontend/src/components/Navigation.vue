@@ -43,10 +43,6 @@
                     user: {
                         left: [
                             {
-                                text: 'navigation.dashboard',
-                                page:'/dashboard'
-                            },
-                            {
                                 text: 'navigation.tasks',
                                 page:'/tasks'
                             }
@@ -65,10 +61,6 @@
                     manager: {
                         left: [
                             {
-                                text: 'navigation.dashboard',
-                                page:'/dashboard'
-                            },
-                            {
                                 text: 'navigation.users',
                                 page:'/users'
                             }
@@ -86,10 +78,6 @@
                     },
                     admin: {
                         left: [
-                            {
-                                text: 'navigation.dashboard',
-                                page:'/dashboard'
-                            },
                             {
                                 text: 'navigation.tasks',
                                 page:'/tasks'

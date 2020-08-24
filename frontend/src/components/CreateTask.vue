@@ -72,6 +72,7 @@
     export default {
         data() {
             return {
+                isAdminAction: false, // is the current action doing under admin
                 showNotification: false,
                 buttonDisabled: false,
                 autoCheckForm: false,
@@ -87,12 +88,21 @@
                     format: 'YYYY-MM-DD',
                     useCurrent: false,
                     maxDate: new Date()
-                }
+                },
+                user: this.$store.state.user
             };
         },
         created: function () {
             if(!this.$store.state.isAuthenticated) {
                 this.$router.push('/');
+            }
+        },
+        mounted: function() {
+            if(this.$route.params.id) {
+                this.isAdminAction = true;
+                this.user = {
+                    id: this.$route.params.id
+                };
             }
         },
         computed: {
@@ -164,8 +174,10 @@
                 this.serverErrors = [];
                 this.buttonDisabled = true;
 
+                let userId = !this.isAdminAction ? '' : '?user_id=' + this.user.id;
+
                 this.$Progress.start();
-                this.$http.post('tasks', this.task)
+                this.$http.post('tasks' + userId, this.task)
                     .then(response => {
                         this.$Progress.finish();
                         this.showNotification = true;

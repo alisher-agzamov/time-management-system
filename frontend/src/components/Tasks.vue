@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>{{ $t("tasks.page_title") }}</h1>
+    <h1 v-if="!isAdminAction">{{ $t("tasks.page_title") }}</h1>
+    <h1 v-else>{{ $t("tasks.page_title_user") }}</h1>
 
     <div class="alert alert-success" role="alert" v-if="showNotification">
       {{ $t("tasks.notification_deleted") }}
@@ -8,7 +9,8 @@
 
     <div class="row mb-3">
       <div class="col-sm text-left">
-        <router-link class="btn btn-primary" :to="{ name: 'CreateTask'}">{{ $t("tasks.create") }}</router-link>
+        <router-link v-if="!isAdminAction" class="btn btn-primary" :to="{ name: 'CreateTask'}">{{ $t("tasks.create") }}</router-link>
+        <router-link v-else class="btn btn-primary" :to="{ name: 'UserTasksCreate'}">{{ $t("tasks.create_for_user") }}</router-link>
       </div>
 
       <div class="col-sm">
@@ -94,6 +96,7 @@
         },
         data() {
             return {
+                isAdminAction: false, // is the current action doing under admin
                 datePicker: {
                     opens: 'center',
                     minDate: '2020-01-01',
@@ -129,13 +132,23 @@
             startDate.setDate(startDate.getDate() - 7);
             this.filter.startDate = this.dateFormatter(startDate);
 
+            if(this.$route.params.id) {
+                this.isAdminAction = true;
+                this.user = {
+                    id: this.$route.params.id
+                };
+            }
+
             this.loadTasks();
         },
         methods: {
             loadTasks: function() {
                 this.$Progress.start();
+
+                let userId = !this.isAdminAction ? '' : '&user_id=' + this.user.id;
+
                 this.$http.get('tasks?date_from=' + this.filter.startDate
-                    + '&date_to=' + this.filter.endDate)
+                    + '&date_to=' + this.filter.endDate + userId)
                     .then(response => {
                         this.$Progress.finish();
                         this.tasks = response.data.result;
@@ -175,9 +188,11 @@
                     });
             },
             exportTasks: function() {
+                let userId = !this.isAdminAction ? '' : '&user_id=' + this.user.id;
+
                 this.$http({
                     url: 'tasks/me/export?date_from=' + this.filter.startDate
-                        + '&date_to=' + this.filter.endDate,
+                        + '&date_to=' + this.filter.endDate + userId,
                     method: 'GET',
                     responseType: 'blob',
                 }).then((response) => {

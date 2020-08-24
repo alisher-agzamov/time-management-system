@@ -13,11 +13,7 @@ class ExportTaskRequest extends FormRequest
      */
     public function getTargetUserId()
     {
-        if($this->route('id') == 'me') {
-            return $this->user()->id;
-        }
-
-        return $this->route('id');
+        return $this->get('user_id', $this->user()->id);
     }
 
     /**

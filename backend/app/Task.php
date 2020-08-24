@@ -84,11 +84,6 @@ class Task extends Model
 
         // Admin creates task using user_id
         if(!empty($data['user_id'])) {
-
-            if(!Auth::user()->hasRole('admin')) {
-                throw new AccessDeniedException();
-            }
-
             $this->user_id = $data['user_id'];
         }
 

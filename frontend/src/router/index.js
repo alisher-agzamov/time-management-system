@@ -85,9 +85,19 @@ export default new Router({
       component: EditUser
     },
     {
+      path: '/users/:id/tasks',
+      name: 'UserTasks',
+      component: Tasks
+    },
+    {
+      path: '/users/:id/tasks/create',
+      name: 'UserTasksCreate',
+      component: CreateTask
+    },
+    {
       path: '/users/:id',
       name: 'ShowUser',
       component: ShowUser
-    },
+    }
   ]
 })

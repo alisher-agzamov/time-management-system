@@ -23,6 +23,7 @@
         <th scope="col">{{ $t("users.name") }}</th>
         <th scope="col">{{ $t("users.email") }}</th>
         <th scope="col">{{ $t("users.role") }}</th>
+        <th scope="col" v-if="$store.state.user.role == 'admin'">{{ $t("users.tasks") }}</th>
         <th scope="col" style="width: 50px;">{{ $t("users.action") }}</th>
       </tr>
       </thead>
@@ -32,6 +33,9 @@
         </td>
         <td>{{ item.email }}</td>
         <td>{{ item.role }}</td>
+        <td v-if="$store.state.user.role == 'admin'">
+        <router-link :to="{ name: 'UserTasks', params: { id: item.id }}">{{ $t("users.tasks") }}</router-link>
+        </td>
         <td>
           <router-link
             :to="{ name: 'EditUser', params: { id: item.id }}">

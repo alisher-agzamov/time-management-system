@@ -13,6 +13,11 @@ class StoreTaskRequest extends FormRequest
      */
     public function authorize()
     {
+        // Admin create a task for the user
+        if($this->get('user_id')) {
+            return $this->user()->hasRole('admin');
+        }
+
         return true;
     }
 

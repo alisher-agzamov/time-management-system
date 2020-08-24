@@ -2,6 +2,10 @@
   <div>
     <h1>{{ $t("show_user.page_title") }}</h1>
 
+    <div class="alert alert-success" role="alert" v-if="showNotification">
+      {{ $t("show_user.notification_deleted") }}
+    </div>
+
     <div class="text-left">
       <div>
         <strong>{{ $t("show_user.form_field_name") }}:</strong> {{user.name}}
@@ -16,9 +20,18 @@
         <strong>{{ $t("show_user.form_field_preferred_working_hours") }}:</strong> {{user.preferred_working_hour_per_day}}
       </div>
 
-      <div>
-        <button>{{ $t("show_user.button_edit") }}</button>
-        <button>{{ $t("show_user.button_delete") }}</button>
+      <div class="mt-3">
+        <router-link
+          class="btn btn-primary"
+          :to="{ name: 'EditUser', params: { id: this.$route.params.id }}">
+          <font-awesome-icon icon="edit" />
+          {{ $t("show_user.button_edit") }}
+        </router-link>
+
+        <a class="btn btn-danger" href="javascript:;" v-on:click="deleteUser($route.params.id)">
+          <font-awesome-icon icon="trash" />
+          {{ $t("show_user.button_delete") }}
+        </a>
       </div>
     </div>
 
@@ -38,18 +51,40 @@
         },
         data() {
             return {
+                showNotification: false,
                 user: {}
             };
         },
         mounted() {
-            this.$Progress.start();
-            this.$http.get('user/' + this.$route.params.id)
-                .then(response => {
-                    this.$Progress.finish();
-                    this.user = response.data.result;
-                }, (response) => {
-                    this.$Progress.fail()
-                })
+            this.loadUser();
+        },
+        methods: {
+            loadUser: function() {
+                this.$Progress.start();
+                this.$http.get('user/' + this.$route.params.id)
+                    .then(response => {
+                        this.$Progress.finish();
+                        this.user = response.data.result;
+                        console.log(this.user);
+                    }, (response) => {
+                        this.$Progress.fail()
+                    });
+            },
+            deleteUser: function(userId) {
+                if(!confirm(this.$t("show_user.deletion_confirm"))){
+                    return;
+                }
+
+                this.$http.delete('user/' + userId)
+                    .then(response => {
+                        this.$Progress.finish();
+
+                        this.showNotification = true;
+                        setTimeout(() => this.$router.push('/users'), 1000);
+                    }, (response) => {
+                        this.$Progress.fail()
+                    });
+            }
         }
     }
 </script>

@@ -14,9 +14,11 @@
   },
   "tasks": {
     "page_title": "Tasks",
+    "page_title_user": "User tasks",
     "notification_deleted": "The task has been successfully deleted.",
     "notification_not_found": "Tasks are not found.",
     "create": "Create a new task",
+    "create_for_user": "Create a new task for the user",
     "date_filter": "Date filter",
     "export": "Export",
     "duration": "Duration",
@@ -68,6 +70,8 @@
     "form_field_description": "Description",
     "form_field_date": "Date",
     "form_field_duration": "Duration",
+    "notification_deleted": "The task has been successfully deleted.",
+    "deletion_confirm": "Do you really want to delete?",
     "button_edit": "Edit",
     "button_delete": "Delete"
   },
@@ -80,6 +84,7 @@
     "notification_not_found": "Users are not found.",
     "create": "Create a new user",
     "name": "Name",
+    "tasks": "Tasks",
     "email": "Email",
     "role": "Role",
     "action": "Action",
@@ -132,6 +137,8 @@
     "form_field_email": "Email address",
     "form_field_role": "Role",
     "form_field_preferred_working_hours": "Preferred Working Hour Per Day",
+    "notification_deleted": "The user has been successfully deleted.",
+    "deletion_confirm": "Do you really want to delete?",
     "button_edit": "Edit",
     "button_delete": "Delete"
   },
