@@ -135,7 +135,27 @@
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });
+            },
+            async getUser() {
+                this.$Progress.start();
+                this.$http.get('user/me')
+                    .then(response => {
+                        this.$Progress.finish();
+                        this.user.name = response.data.result.name;
+                        this.user.email = response.data.result.email;
+                        this.user.preferred_working_hour_per_day = response.data.result.preferred_working_hour_per_day;
 
+                        // Update current state
+                        this.$store.state.user.name = response.data.result.name;
+                        this.$store.state.user.email = response.data.result.email;
+                        this.$store.state.user.role = response.data.result.role;
+                        this.$store.state.user.preferred_working_hour_per_day = response.data.result.preferred_working_hour_per_day;
+
+                        this.$store.commit('syncLocalStorage');
+
+                    }, (response) => {
+                        this.handleApiErrors(response.data);
+                    })
             },
             validEmail: function (email) {
                 var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -143,25 +163,7 @@
             }
         },
         mounted() {
-            this.$Progress.start();
-            this.$http.get('user/me')
-                .then(response => {
-                    this.$Progress.finish();
-                    this.user.name = response.data.result.name;
-                    this.user.email = response.data.result.email;
-                    this.user.preferred_working_hour_per_day = response.data.result.preferred_working_hour_per_day;
-
-                    // Update current state
-                    this.$store.state.user.name = response.data.result.name;
-                    this.$store.state.user.email = response.data.result.email;
-                    this.$store.state.user.role = response.data.result.role;
-                    this.$store.state.user.preferred_working_hour_per_day = response.data.result.preferred_working_hour_per_day;
-
-                    this.$store.commit('syncLocalStorage');
-
-                }, (response) => {
-                    this.handleApiErrors(response.data);
-                })
+            this.getUser();
         }
     }
 </script>

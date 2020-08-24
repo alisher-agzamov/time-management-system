@@ -5,6 +5,7 @@ namespace App;
 use App\Exceptions\CannotBeExecutedException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -145,8 +146,6 @@ class User extends Authenticatable
         // Update the user role
         if(!empty($data['role'])) {
 
-            //TODO: check the role value
-
             // Remove all current roles and assign a new one
             $this->syncRoles([$data['role']]);
         }
@@ -186,6 +185,13 @@ class User extends Authenticatable
 
         if(!$this->save()) {
             throw new CannotBeExecutedException();
+        }
+
+        // Assign a custom role
+        if(!empty($data['role'])
+            && Auth::user()
+            && $this->canEditRole(Auth::user())) {
+            $role = $data['role'];
         }
 
         // Assign a new role

@@ -35,6 +35,15 @@
         {{ $t("edit_user.form_field_preferred_working_hours_minutes") }}
       </div>
 
+      <div class="form-group" v-if="$store.state.user.role == 'admin'">
+        <label for="register-role">{{ $t("create_user.form_field_role") }}: <span class="required">*</span></label> <br />
+        <select v-model="user.role" class="custom-select my-1 mr-sm-2 w-25" id="register-role">
+          <option v-for="role in roles" v-bind:value="role.name">
+            {{ role.name }}
+          </option>
+        </select>
+      </div>
+
       <div class="form-group text-right">
         <router-link class="btn btn-outline-secondary" :to="{ name: 'Users'}">{{ $t("edit_user.button_cancel") }}</router-link>
 
@@ -61,7 +70,8 @@
                     name: '',
                     email: '',
                     preferred_working_hour_per_day: 0
-                }
+                },
+                roles: []
             };
         },
         created: function () {
@@ -140,11 +150,15 @@
                 this.buttonDisabled = true;
 
                 this.$Progress.start();
-                this.$http.put('user/' + this.$route.params.id, {
-                    name: this.user.name,
-                    email: this.user.email,
-                    preferred_working_hour_per_day: this.user.preferred_working_hour_per_day,
-                })
+
+                let data = this.user;
+
+                // Delete role if the user does not have admin role
+                if(this.$store.state.user.role != 'admin') {
+                    this.$delete(data, 'role');
+                }
+
+                this.$http.put('user/' + this.$route.params.id, data)
                     .then(response => {
                         this.$Progress.finish();
                         this.profileUpdated = true;
@@ -154,7 +168,30 @@
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });
+            },
+            async loadUser() {
+                this.$Progress.start();
+                this.$http.get('user/' + this.$route.params.id)
+                    .then(response => {
+                        this.$Progress.finish();
+                        this.user = response.data.result;
 
+                    }, (response) => {
+                        this.handleApiErrors(response.data);
+                    });
+            },
+            async loadRoles() {
+                if(this.$store.state.user.role != 'admin') {
+                    return;
+                }
+
+                this.$Progress.start();
+                this.$http.get('roles')
+                    .then(response => {
+                        this.roles = response.data.result;
+                    }, (response) => {
+                        this.handleApiErrors(response.data);
+                    })
             },
             validEmail: function (email) {
                 var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -162,17 +199,8 @@
             }
         },
         mounted() {
-            this.$Progress.start();
-            this.$http.get('user/' + this.$route.params.id)
-                .then(response => {
-                    this.$Progress.finish();
-                    this.user.name = response.data.result.name;
-                    this.user.email = response.data.result.email;
-                    this.user.preferred_working_hour_per_day = response.data.result.preferred_working_hour_per_day;
-
-                }, (response) => {
-                    this.handleApiErrors(response.data);
-                })
+            this.loadUser();
+            this.loadRoles();
         }
     }
 </script>

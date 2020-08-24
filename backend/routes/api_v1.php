@@ -30,6 +30,9 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::get('user/{id}', 'Api\V1\UserController@get');
     Route::put('user/{id}', 'Api\V1\UserController@update'); // update by user ID or /me
     Route::delete('user/{user}', 'Api\V1\UserController@delete');
+
+    Route::get('roles', 'Api\V1\RoleController@index');
+    Route::post('user/create', 'Api\V1\AuthController@signup');
 });
 
 Route::group(['middleware' => ['auth:api', 'can:tasks']], function() {

@@ -45,6 +45,15 @@
         {{ $t("create_user.form_field_preferred_working_hours_minutes") }}
       </div>
 
+      <div class="form-group" v-if="$store.state.user.role == 'admin'">
+        <label for="register-role">{{ $t("create_user.form_field_role") }}: <span class="required">*</span></label> <br />
+        <select v-model="user.role" class="custom-select my-1 mr-sm-2 w-25" id="register-role">
+          <option v-for="role in roles" v-bind:value="role.name">
+            {{ role.name }}
+          </option>
+        </select>
+      </div>
+
       <div class="form-group text-right">
         <router-link class="btn btn-outline-secondary" :to="{ name: 'Users'}">{{ $t("create_user.button_cancel") }}</router-link>
 
@@ -72,14 +81,19 @@
                     email: '',
                     password: '',
                     password_confirmation: '',
-                    preferred_working_hour_per_day: 0
-                }
+                    preferred_working_hour_per_day: 0,
+                    role: 'user'
+                },
+                roles: []
             };
         },
         created: function () {
             if(!['admin', 'manager'].includes(this.$store.state.user.role)) {
                 this.$router.push('/');
             }
+        },
+        mounted() {
+            this.loadRoles();
         },
         computed: {
             hours: {
@@ -161,7 +175,7 @@
                 this.buttonDisabled = true;
 
                 this.$Progress.start();
-                this.$http.post('auth/signup', this.user)
+                this.$http.post('user/create', this.user)
                     .then(response => {
                         this.$Progress.finish();
                         this.showNotification = true;
@@ -171,6 +185,19 @@
                         this.handleApiErrors(response.data);
                     });
 
+            },
+            async loadRoles() {
+                if(this.$store.state.user.role != 'admin') {
+                    return;
+                }
+
+                this.$Progress.start();
+                this.$http.get('roles')
+                    .then(response => {
+                        this.roles = response.data.result;
+                    }, (response) => {
+                        this.handleApiErrors(response.data);
+                    })
             },
             validEmail: function (email) {
                 var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

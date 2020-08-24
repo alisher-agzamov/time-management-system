@@ -105,6 +105,7 @@
     "form_field_preferred_working_hours_hours": "Hours",
     "form_field_preferred_working_hours_minutes": "Minutes",
     "form_field_preferred_working_hours_error": "Please, fill the Preferred Working Hour Per Day field.",
+    "form_field_role": "Role",
     "button_create": "Create",
     "button_cancel": "Cancel"
   },
