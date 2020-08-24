@@ -36,7 +36,7 @@
             generate: function() {
                 this.list = [];
 
-                this.addToList('Home', 'Home');
+                this.addToList('Home', 'Index');
 
                 switch (this.$route.name) {
                     case'Index':
@@ -44,6 +44,15 @@
                         this.list = [];
                         this.addToList(this.$t("navigation.home"), null, {});
                         break;
+
+                      case'Login':
+                        this.addToList(this.$t("navigation.login"), null, {});
+                        break;
+
+                      case'Signup':
+                        this.addToList(this.$t("navigation.signup"), null, {});
+                        break;
+
                     case'Tasks':
                         this.addToList(this.$t("navigation.tasks"), null, {});
                         break;

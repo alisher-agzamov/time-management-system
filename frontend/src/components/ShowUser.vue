@@ -17,7 +17,7 @@
         <strong>{{ $t("show_user.form_field_role") }}:</strong> {{user.role}}
       </div>
       <div>
-        <strong>{{ $t("show_user.form_field_preferred_working_hours") }}:</strong> {{user.preferred_working_hour_per_day}}
+        <strong>{{ $t("show_user.form_field_preferred_working_hours") }}:</strong> {{renderDuration(user.preferred_working_hour_per_day)}}
       </div>
 
       <div class="mt-3">

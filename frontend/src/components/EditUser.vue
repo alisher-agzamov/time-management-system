@@ -166,7 +166,7 @@
                         this.profileUpdated = true;
                         this.buttonDisabled = false;
 
-                        setTimeout(() => this.$router.push('/users'), 1000);
+                        setTimeout(() => this.$router.go(-1), 1000);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });

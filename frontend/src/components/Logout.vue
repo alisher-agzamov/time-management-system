@@ -30,7 +30,7 @@
 
               this.$store.commit('syncLocalStorage');
 
-              this.$router.push('/');
+              this.$router.push('/login');
           }
         }
     }

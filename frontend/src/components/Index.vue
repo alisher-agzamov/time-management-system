@@ -14,7 +14,7 @@
     },
       created: function () {
           if(!this.$store.state.isAuthenticated) {
-              this.$router.push('/login');
+              //this.$router.push('/login');
           }
       },
   }

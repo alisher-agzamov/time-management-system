@@ -15,22 +15,22 @@
 
       <div class="form-group">
         <label for="register-name">{{ $t("signup.form_field_name") }}: <span class="required">*</span></label>
-        <input v-model="user.name" type="text" class="form-control" id="register-name" :placeholder="$t('signup.form_field_name_placeholder')">
+        <input v-model="user.name" v-on:keyup.enter="signUp" type="text" class="form-control" id="register-name" :placeholder="$t('signup.form_field_name_placeholder')">
       </div>
 
       <div class="form-group">
         <label for="register-email">{{ $t("signup.form_field_email") }}: <span class="required">*</span></label>
-        <input v-model="user.email" type="email" class="form-control" id="register-email" aria-describedby="emailHelp" :placeholder="$t('signup.form_field_email_placeholder')">
+        <input v-model="user.email" v-on:keyup.enter="signUp" type="email" class="form-control" id="register-email" aria-describedby="emailHelp" :placeholder="$t('signup.form_field_email_placeholder')">
       </div>
 
       <div class="form-group">
         <label for="register-password">{{ $t("signup.form_field_password") }}: <span class="required">*</span></label>
-        <input v-model="user.password" type="password" class="form-control" id="register-password" :placeholder="$t('signup.form_field_password_placeholder')">
+        <input v-model="user.password" v-on:keyup.enter="signUp" type="password" class="form-control" id="register-password" :placeholder="$t('signup.form_field_password_placeholder')">
       </div>
 
       <div class="form-group">
         <label for="register-password-confirmation">{{ $t("signup.form_field_password_confirmation") }}: <span class="required">*</span></label>
-        <input v-model="user.password_confirmation" type="password" class="form-control" id="register-password-confirmation" :placeholder="$t('signup.form_field_password_confirmation_placeholder')">
+        <input v-model="user.password_confirmation" v-on:keyup.enter="signUp" type="password" class="form-control" id="register-password-confirmation" :placeholder="$t('signup.form_field_password_confirmation_placeholder')">
       </div>
 
       <div class="form-group">
@@ -47,8 +47,8 @@
 
       <div class="form-group text-right">
         <button type="submit" class="btn btn-primary"
-                @click="doLogin()"
-                @keyup.enter="doLogin()"
+                @click="signUp"
+                @keyup.enter="signUp"
                 :disabled="buttonDisabled">
           <span v-if="buttonDisabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>{{ $t("signup.button_signup") }}</button>
       </div>
@@ -147,7 +147,7 @@
             }
         },
         methods: {
-            async doLogin() {
+            async signUp() {
                 // activate compute to check form
                 this.autoCheckForm = true;
 

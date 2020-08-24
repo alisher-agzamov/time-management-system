@@ -128,9 +128,9 @@
             };
         },
         mounted() {
-            // Set start date in filter as current - 7 days
+            // Set start date in filter as current - 30 days
             let startDate = new Date();
-            startDate.setDate(startDate.getDate() - 7);
+            startDate.setDate(startDate.getDate() - 30);
             this.filter.startDate = this.dateFormatter(startDate);
 
             if(this.$route.params.id) {
