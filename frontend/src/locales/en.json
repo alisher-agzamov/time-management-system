@@ -8,6 +8,7 @@
     "signup": "Signup",
     "dashboard": "Dashboard",
     "tasks": "Tasks",
+    "users": "Users",
     "profile": "Profile",
     "logout": "Logout"
   },
@@ -20,6 +21,7 @@
     "export": "Export",
     "duration": "Duration",
     "action": "Action",
+    "title": "Title",
     "deletion_confirm": "Do you really want to delete?",
     "hour_prefix": "h",
     "minute_prefix": "m"
@@ -73,7 +75,55 @@
     "page_title": "Dashboard"
   },
   "users": {
-    "page_title": "Users"
+    "page_title": "Users",
+    "notification_deleted": "The user has been successfully deleted.",
+    "notification_not_found": "Users are not found.",
+    "create": "Create a new user",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "action": "Action",
+    "deletion_confirm": "Do you really want to delete?"
+  },
+  "create_user": {
+    "page_title": "Create a new user",
+    "notification_registered": "A new user has been successfully created.",
+    "form_field_name": "Full Name",
+    "form_field_name_placeholder": "Enter full name",
+    "form_field_name_error": "Please, fill the name field.",
+    "form_field_email": "Email address",
+    "form_field_email_placeholder": "Enter email",
+    "form_field_email_error": "Please, fill the email field.",
+    "form_field_email_error_correct": "Please, set the correct email address.",
+    "form_field_password": "Password",
+    "form_field_password_placeholder": "Enter password",
+    "form_field_password_error": "Please, fill the password field.",
+    "form_field_password_confirmation": "Password Confirmation",
+    "form_field_password_confirmation_placeholder": "Please, fill the password confirmation field.",
+    "form_field_password_confirmation_error": "Please, fill the password field.",
+    "form_field_preferred_working_hours": "Preferred Working Hour Per Day",
+    "form_field_preferred_working_hours_hours": "Hours",
+    "form_field_preferred_working_hours_minutes": "Minutes",
+    "form_field_preferred_working_hours_error": "Please, fill the Preferred Working Hour Per Day field.",
+    "button_create": "Create",
+    "button_cancel": "Cancel"
+  },
+  "edit_user": {
+    "page_title": "Edit the user",
+    "notification_updated": "The user has been successfully updated.",
+    "form_field_name": "Full Name",
+    "form_field_name_placeholder": "Enter full name",
+    "form_field_name_error": "Please, fill the name field.",
+    "form_field_email": "Email address",
+    "form_field_email_error": "Please, fill the email field.",
+    "form_field_email_error_correct": "Please, fill the correct email address.",
+    "form_field_email_placeholder": "Enter email",
+    "form_field_preferred_working_hours": "Preferred Working Hour Per Day",
+    "form_field_preferred_working_hours_hours": "Hours",
+    "form_field_preferred_working_hours_minutes": "Minutes",
+    "form_field_preferred_working_hours_error": "Please, fill the Preferred Working Hour Per Day field.",
+    "button_update": "Update",
+    "button_cancel": "Cancel"
   },
   "login": {
     "page_title": "Login",

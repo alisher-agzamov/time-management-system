@@ -28,8 +28,11 @@
 <script>
     export default {
         created: function () {
-            if(!this.$store.state.isAuthenticated
-                || !this.$route.params.id) {
+            if(!['admin', 'user'].includes(this.$store.state.user.role)) {
+                this.$router.push('/');
+            }
+
+            if(!this.$route.params.id) {
                 this.$router.push('/tasks');
             }
         },

@@ -11,7 +11,12 @@
       return {
 
       }
-    }
+    },
+      created: function () {
+          if(!this.$store.state.isAuthenticated) {
+              this.$router.push('/login');
+          }
+      },
   }
 </script>
 

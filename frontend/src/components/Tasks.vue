@@ -47,7 +47,7 @@
     <table class="table text-left" v-if="!tasksNotFoundNotification">
       <thead class="">
       <tr>
-        <th scope="col">Title</th>
+        <th scope="col">{{ $t("tasks.title") }}</th>
         <th scope="col" style="width: 50px;">{{ $t("tasks.duration") }}</th>
         <th scope="col" style="width: 50px;">{{ $t("tasks.action") }}</th>
       </tr>
@@ -88,7 +88,7 @@
 
     export default {
         created: function () {
-            if(!this.$store.state.isAuthenticated) {
+            if(!['admin', 'user'].includes(this.$store.state.user.role)) {
                 this.$router.push('/');
             }
         },
@@ -140,7 +140,6 @@
                         this.$Progress.finish();
                         this.tasks = response.data.result;
                         this.tasksNotFoundNotification = !Object.keys(this.tasks.tasks).length;
-                        console.log(Object.keys(this.tasks.tasks).length);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     })

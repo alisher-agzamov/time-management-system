@@ -20,11 +20,9 @@ class UserController extends Controller
     {
         //TODO: pagination
 
-        $users = User::orderBy('id', 'DESC')
-            ->get()
-            ->toArray();
-
-        return response()->success($users);
+        return response()->success(
+            User::getAllUsers()
+        );
     }
 
     /**
@@ -52,7 +50,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request)
     {
         User::find($request->getTargetUserId())
-            ->updateUser($request->validated());
+            ->updateUser($request->validated(), $request->isNeedToUpdateEmail);
 
         return response()->noContent();
     }

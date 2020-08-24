@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t("profile.page_title") }}</h1>
+    <h1>{{ $t("edit_user.page_title") }}</h1>
 
     <div class="w-50 m-auto text-left">
 
@@ -10,37 +10,39 @@
       </div>
 
       <div class="alert alert-success" role="alert" v-if="profileUpdated">
-        {{ $t("profile.notification_updated") }}
+        {{ $t("edit_user.notification_updated") }}
       </div>
 
       <div class="form-group">
-        <label for="register-name">{{ $t("profile.form_field_name") }}: <span class="required">*</span></label>
-        <input v-model="user.name" type="text" class="form-control" id="register-name" :placeholder="$t('profile.form_field_name_placeholder')">
+        <label for="register-name">{{ $t("edit_user.form_field_name") }}: <span class="required">*</span></label>
+        <input v-model="user.name" type="text" class="form-control" id="register-name" :placeholder="$t('edit_user.form_field_name_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="register-email">{{ $t("profile.form_field_email") }}: <span class="required">*</span></label>
-        <input v-model="user.email" type="email" class="form-control" id="register-email" aria-describedby="emailHelp" :placeholder="$t('profile.form_field_email_placeholder')" disabled>
+        <label for="register-email">{{ $t("edit_user.form_field_email") }}: <span class="required">*</span></label>
+        <input v-model="user.email" type="email" class="form-control" id="register-email" aria-describedby="emailHelp" :placeholder="$t('edit_user.form_field_email_placeholder')">
       </div>
 
       <div class="form-group">
-        <label for="register-preferred-working-hour-per-day">{{ $t("profile.form_field_preferred_working_hours") }}: <span class="required">*</span></label> <br />
+        <label for="register-preferred-working-hour-per-day">{{ $t("edit_user.form_field_preferred_working_hours") }}: <span class="required">*</span></label> <br />
         <select v-model="hours" class="custom-select my-1 mr-sm-2 w-25" id="register-preferred-working-hour-per-day">
           <option v-for="n in 24" :value="n - 1">{{ n - 1 }}</option>
         </select>
-        {{ $t("profile.form_field_preferred_working_hours_hours") }}
+        {{ $t("edit_user.form_field_preferred_working_hours_hours") }}
         <select v-model="minutes" class="custom-select my-1 mr-sm-2 w-25" id="register-preferred-working-hour-per-day-minutes">
           <option v-for="n in 60" :value="n - 1">{{ n - 1 }}</option>
         </select>
-        {{ $t("profile.form_field_preferred_working_hours_minutes") }}
+        {{ $t("edit_user.form_field_preferred_working_hours_minutes") }}
       </div>
 
       <div class="form-group text-right">
+        <router-link class="btn btn-outline-secondary" :to="{ name: 'Users'}">{{ $t("edit_user.button_cancel") }}</router-link>
+
         <button type="submit" class="btn btn-primary"
                 @click="updateUserProfile()"
                 @keyup.enter="updateUserProfile()"
                 :disabled="buttonDisabled">
-          <span v-if="buttonDisabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>{{ $t("profile.button_update") }}</button>
+          <span v-if="buttonDisabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>{{ $t("edit_user.button_update") }}</button>
       </div>
     </div>
   </div>
@@ -55,12 +57,20 @@
                 autoCheckForm: false,
                 errors: [],
                 serverErrors: [],
-                user: this.$store.state.user
+                user: {
+                    name: '',
+                    email: '',
+                    preferred_working_hour_per_day: 0
+                }
             };
         },
         created: function () {
-            if(!this.$store.state.isAuthenticated) {
+            if(!['admin', 'manager'].includes(this.$store.state.user.role)) {
                 this.$router.push('/');
+            }
+
+            if(!this.$route.params.id) {
+                this.$router.push('/users');
             }
         },
         computed: {
@@ -98,12 +108,20 @@
 
                 // Check name
                 if (!this.user.name.trim()) {
-                    this.errors.push(this.$t("profile.form_field_name_error"));
+                    this.errors.push(this.$t("edit_user.form_field_name_error"));
+                }
+
+                // Check email
+                if (!this.user.email) {
+                    this.errors.push(this.$t("edit_user.form_field_email_error"));
+                }
+                else if (!this.validEmail(this.user.email)) {
+                    this.errors.push(this.$t("edit_user.form_field_email_error_correct"));
                 }
 
                 // Check preferred working hours
                 if (!this.user.preferred_working_hour_per_day) {
-                    this.errors.push(this.$t("profile.form_field_preferred_working_hours_error"));
+                    this.errors.push(this.$t("edit_user.form_field_preferred_working_hours_error"));
                 }
 
                 return this.errors;
@@ -122,8 +140,9 @@
                 this.buttonDisabled = true;
 
                 this.$Progress.start();
-                this.$http.put('user/me', {
+                this.$http.put('user/' + this.$route.params.id, {
                     name: this.user.name,
+                    email: this.user.email,
                     preferred_working_hour_per_day: this.user.preferred_working_hour_per_day,
                 })
                     .then(response => {
@@ -131,7 +150,7 @@
                         this.profileUpdated = true;
                         this.buttonDisabled = false;
 
-                        setTimeout(() => this.profileUpdated = false, 2000);
+                        setTimeout(() => this.$router.push('/users'), 1000);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });
@@ -144,20 +163,12 @@
         },
         mounted() {
             this.$Progress.start();
-            this.$http.get('user/me')
+            this.$http.get('user/' + this.$route.params.id)
                 .then(response => {
                     this.$Progress.finish();
                     this.user.name = response.data.result.name;
                     this.user.email = response.data.result.email;
                     this.user.preferred_working_hour_per_day = response.data.result.preferred_working_hour_per_day;
-
-                    // Update current state
-                    this.$store.state.user.name = response.data.result.name;
-                    this.$store.state.user.email = response.data.result.email;
-                    this.$store.state.user.role = response.data.result.role;
-                    this.$store.state.user.preferred_working_hour_per_day = response.data.result.preferred_working_hour_per_day;
-
-                    this.$store.commit('syncLocalStorage');
 
                 }, (response) => {
                     this.handleApiErrors(response.data);

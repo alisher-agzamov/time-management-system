@@ -61,6 +61,28 @@
                                 page: '/logout'
                             }
                         ]
+                    },
+                    manager: {
+                        left: [
+                            {
+                                text: 'navigation.dashboard',
+                                page:'/dashboard'
+                            },
+                            {
+                                text: 'navigation.users',
+                                page:'/users'
+                            }
+                        ],
+                        right: [
+                            {
+                                text: 'navigation.profile',
+                                page: '/profile'
+                            },
+                            {
+                                text: 'navigation.logout',
+                                page: '/logout'
+                            }
+                        ]
                     }
                 }
 

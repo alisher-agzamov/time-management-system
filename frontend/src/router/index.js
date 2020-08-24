@@ -4,10 +4,12 @@ import Index from '@/components/Index'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import Dashboard from '@/components/Dashboard'
-import Tasks from '@/components/Tasks'
 import Logout from '@/components/Logout'
 import Profile from '@/components/Profile'
 import Users from '@/components/Users'
+import CreateUser from '@/components/CreateUser'
+import EditUser from '@/components/EditUser'
+import Tasks from '@/components/Tasks'
 import ShowTask from '@/components/ShowTask'
 import EditTask from '@/components/EditTask'
 import CreateTask from '@/components/CreateTask'
@@ -70,6 +72,16 @@ export default new Router({
       path: '/users',
       name: 'Users',
       component: Users
+    },
+    {
+      path: '/users/create',
+      name: 'CreateUser',
+      component: CreateUser
+    },
+    {
+      path: '/users/edit/:id',
+      name: 'EditUser',
+      component: EditUser
     }
   ]
 })

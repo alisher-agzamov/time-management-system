@@ -118,12 +118,19 @@ class User extends Authenticatable
     /**
      * Update the user
      * @param array $data
+     * @param bool $isNeedToUpdateEmail
      * @throws CannotBeExecutedException
      */
-    public function updateUser(array $data)
+    public function updateUser(array $data, bool $isNeedToUpdateEmail = false)
     {
         $this->name = $data['name'];
-        //$this->email = $data['email'];
+
+        // Update email if all validation rules are passed on the request level
+        if($isNeedToUpdateEmail
+            && !empty($data['email'])) {
+
+            $this->email = $data['email'];
+        }
 
         if(!$this->save()) {
             throw new CannotBeExecutedException();
@@ -207,5 +214,32 @@ class User extends Authenticatable
         }
 
         return (int) $setting->value;
+    }
+
+    /**
+     * Get all users with the first role
+     * @return mixed
+     */
+    public static function getAllUsers()
+    {
+        $users = User::orderBy('id', 'DESC')
+            ->with('roles:name')
+            ->get()
+            ->toArray();
+
+        foreach ($users as $key => $user) {
+
+            // Default role
+            $role = 'user';
+
+            if(!empty($user['roles'][0])) {
+                $role = $user['roles'][0]['name'];
+            }
+
+            $users[$key]['role'] = $role;
+            unset($users[$key]['roles']);
+        }
+
+        return $users;
     }
 }

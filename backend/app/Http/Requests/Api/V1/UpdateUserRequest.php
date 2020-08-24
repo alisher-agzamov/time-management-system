@@ -10,6 +10,12 @@ use Illuminate\Validation\Rule;
 class UpdateUserRequest extends FormRequest
 {
     /**
+     * Is needed to update email
+     * @var bool
+     */
+    public $isNeedToUpdateEmail = false;
+
+    /**
      * Get target user ID
      * @return \Illuminate\Routing\Route|object|string|null
      */
@@ -52,14 +58,24 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name'      => 'required|string|max:255',
-            /*'email'     => [
-                'required',
-                Rule::unique('users')->ignore($this->getTargetUserId()),
-            ],*/
             'role'      => 'nullable|string',
             'preferred_working_hour_per_day'    => 'required|integer|gt:0|lt:1440', //max 23:59 hours in minutes
         ];
+
+        // If admin or manager edits someone profile then email field is mandatory and it can be changed
+        if($this->route('id') != 'me'
+            && $this->user()->hasRole(['admin', 'manager'])) {
+
+            $rules['email'] = [
+                'required',
+                Rule::unique('users')->ignore($this->getTargetUserId()),
+            ];
+
+            $this->isNeedToUpdateEmail = true;
+        }
+
+        return $rules;
     }
 }

@@ -91,8 +91,11 @@
             };
         },
         created: function () {
-            if(!this.$store.state.isAuthenticated
-                || !this.$route.params.id) {
+            if(!['admin', 'user'].includes(this.$store.state.user.role)) {
+                this.$router.push('/');
+            }
+
+            if(!this.$route.params.id) {
                 this.$router.push('/tasks');
             }
         },
@@ -181,7 +184,7 @@
                         this.$Progress.finish();
                         this.showNotification = true;
 
-                        setTimeout(() => this.$router.push('/tasks'), 2000);
+                        setTimeout(() => this.$router.push('/tasks'), 1000);
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     });
