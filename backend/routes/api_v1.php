@@ -27,10 +27,10 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function() {
-    Route::get('user', 'Api\V1\UserController@index');
-    Route::get('user/{id}', 'Api\V1\UserController@get');
-    Route::put('user/{id}', 'Api\V1\UserController@update'); // update by user ID or /me
-    Route::delete('user/{user}', 'Api\V1\UserController@delete');
+    Route::get('user', 'Api\V1\UserController@index')->name('users.index');
+    Route::get('user/{id}', 'Api\V1\UserController@get')->name('users.get');
+    Route::put('user/{id}', 'Api\V1\UserController@update')->name('users.update'); // update by user ID or /me
+    Route::delete('user/{user}', 'Api\V1\UserController@delete')->name('users.delete');
 
     Route::get('roles', 'Api\V1\RoleController@index')->name('roles.index');
     Route::post('user/create', 'Api\V1\AuthController@signup');
