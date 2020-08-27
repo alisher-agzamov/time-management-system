@@ -3,6 +3,7 @@
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Traits\HasPermissions;
 
 class RolesTableSeeder extends Seeder
 {
@@ -13,15 +14,33 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $userRole       = Role::create(['name' => 'user']);
-        $managerRole    = Role::create(['name' => 'manager']);
-        $adminRole      = Role::create(['name' => 'admin']);
+        if(!$userRole = Role::where(['name' => 'user'])->first()) {
+            $userRole = Role::create(['name' => 'user']);
+        }
 
-        $tasksPermission = Permission::create(['name' => 'tasks']);
-        $usersPermission = Permission::create(['name' => 'users']);
+        if(!$managerRole = Role::where(['name' => 'manager'])->first()) {
+            $managerRole = Role::create(['name' => 'manager']);
+        }
 
-        $userRole->givePermissionTo($tasksPermission);
-        $managerRole->givePermissionTo($usersPermission);
+        if(!$adminRole = Role::where(['name' => 'admin'])->first()) {
+            $adminRole = Role::create(['name' => 'admin']);
+        }
+
+        if(!$tasksPermission = Permission::where(['name' => 'tasks'])->first()) {
+            $tasksPermission = Permission::create(['name' => 'tasks']);
+        }
+
+        if(!$usersPermission = Permission::where(['name' => 'users'])->first()) {
+            $usersPermission = Permission::create(['name' => 'users']);
+        }
+
+        if(!$userRole->hasPermissionTo($tasksPermission)) {
+            $userRole->givePermissionTo($tasksPermission);
+        }
+
+        if(!$managerRole->hasPermissionTo($usersPermission)) {
+            $managerRole->givePermissionTo($usersPermission);
+        }
 
         // Both permissions
         $adminRole->syncPermissions([$tasksPermission, $usersPermission]);

@@ -2,7 +2,9 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\Passport;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,24 +18,24 @@ class UsersTableSeeder extends Seeder
         // Truncate existing records
         User::truncate();
 
-        // The same password for everyone
-        $password = Hash::make('seedPass');
+        Artisan::call('passport:client --personal -n --env=testing');
 
         User::create([
             'name' => 'Administrator',
             'email' => 'admin@test.com',
-            'password' => $password,
-        ]);
+            'password' => Hash::make('adminPass'),
+        ])->assignRole('admin');
 
-        $faker = \Faker\Factory::create();
+        User::create([
+            'name' => 'Manager',
+            'email' => 'manager@test.com',
+            'password' => Hash::make('managerPass'),
+        ])->assignRole('manager');
 
-        // And now let's generate a few dozen users for our app:
-        /*for ($i = 0; $i < 10; $i++) {
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'password' => $password,
-            ]);
-        }*/
+        User::create([
+            'name' => 'User',
+            'email' => 'user@test.com',
+            'password' => Hash::make('userPass'),
+        ])->assignRole('user');
     }
 }

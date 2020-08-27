@@ -17,7 +17,7 @@
         <strong>{{ $t("show_task.form_field_description") }}:</strong> {{task.description}}
       </div>
       <div>
-        <strong>{{ $t("show_task.form_field_duration") }}:</strong> {{task.duration}}
+        <strong>{{ $t("show_task.form_field_duration") }}:</strong> {{renderDuration(task.duration)}}
       </div>
 
       <div class="mt-3">

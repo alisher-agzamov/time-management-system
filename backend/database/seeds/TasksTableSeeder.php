@@ -1,6 +1,7 @@
 <?php
 
 use App\Task;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class TasksTableSeeder extends Seeder
@@ -17,15 +18,21 @@ class TasksTableSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        // And now, let's create a few articles in our database:
-        for ($i = 0; $i < 5; $i++) {
-            Task::create([
-                'title' => $faker->sentence,
-                'description' => $faker->paragraph,
-                'date' => $faker->date(),
-                'duration' => $faker->numberBetween(1, 100),
-                'user_id' => 1,
-            ]);
+        foreach (User::getAllUsers() as $user) {
+
+            if($user['role'] == 'manager') {
+                continue;
+            }
+
+            for ($i = 0; $i < mt_rand(5, 20); $i++) {
+                Task::create([
+                    'title' => $faker->sentence,
+                    'description' => $faker->paragraph,
+                    'date' => $faker->dateTimeBetween('-10 days'),
+                    'duration' => $faker->numberBetween(1, 100),
+                    'user_id' => $user['id'],
+                ]);
+            }
         }
     }
 }

@@ -26,14 +26,6 @@ class Task extends Model
     ];
 
     /**
-     * The attributes that can be updated
-     * @var array
-     */
-    protected $editable = [
-        'title', 'duration'
-    ];
-
-    /**
      * Does the current user have enough permissions to read task data
      * @param $user
      * @return bool

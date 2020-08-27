@@ -22,6 +22,7 @@
 
       <div class="mt-3">
         <router-link
+          v-if="$store.state.user.role == 'admin'"
           class="btn btn-info"
           :to="{ name: 'UserTasks', params: { id: this.$route.params.id }}">
 

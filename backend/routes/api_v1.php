@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('status', 'Api\V1\StatusController@index')->name('status.index');
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('signup', 'Api\V1\AuthController@signup');
-    Route::post('login', 'Api\V1\AuthController@login');
+    Route::post('signup', 'Api\V1\AuthController@signup')->name('auth.signup');
+    Route::post('login', 'Api\V1\AuthController@login')->name('auth.login');
 
     Route::group(['middleware' => 'auth:api'], function() {
-        Route::get('logout', 'Api\V1\AuthController@logout');
+        Route::get('logout', 'Api\V1\AuthController@logout')->name('auth.logout');
     });
 });
 
@@ -31,17 +32,17 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::put('user/{id}', 'Api\V1\UserController@update'); // update by user ID or /me
     Route::delete('user/{user}', 'Api\V1\UserController@delete');
 
-    Route::get('roles', 'Api\V1\RoleController@index');
+    Route::get('roles', 'Api\V1\RoleController@index')->name('roles.index');
     Route::post('user/create', 'Api\V1\AuthController@signup');
 });
 
 Route::group(['middleware' => ['auth:api', 'can:tasks']], function() {
-    Route::get('tasks', 'Api\V1\TaskController@index');
-    Route::get('tasks/{task}', 'Api\V1\TaskController@get');
-    Route::get('tasks/{id}/export', 'Api\V1\TaskController@export');
-    Route::post('tasks', 'Api\V1\TaskController@store');
-    Route::put('tasks/{task}', 'Api\V1\TaskController@update');
-    Route::delete('tasks/{task}', 'Api\V1\TaskController@delete');
+    Route::get('tasks', 'Api\V1\TaskController@index')->name('tasks.index');
+    Route::get('tasks/{task}', 'Api\V1\TaskController@get')->name('tasks.get');
+    Route::get('tasks/{id}/export', 'Api\V1\TaskController@export')->name('tasks.export');
+    Route::post('tasks', 'Api\V1\TaskController@store')->name('tasks.store');
+    Route::put('tasks/{task}', 'Api\V1\TaskController@update')->name('tasks.update');
+    Route::delete('tasks/{task}', 'Api\V1\TaskController@delete')->name('tasks.delete');
 });
 
 
