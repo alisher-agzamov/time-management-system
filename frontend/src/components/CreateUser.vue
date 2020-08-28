@@ -175,7 +175,7 @@
                 this.buttonDisabled = true;
 
                 this.$Progress.start();
-                this.$http.post('user/create', this.user)
+                this.$http.post('user', this.user)
                     .then(response => {
                         this.$Progress.finish();
                         this.showNotification = true;

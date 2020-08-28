@@ -192,7 +192,7 @@
                 let userId = !this.isAdminAction ? '' : '&user_id=' + this.user.id;
 
                 this.$http({
-                    url: 'tasks/me/export?date_from=' + this.filter.startDate
+                    url: 'tasks/export?date_from=' + this.filter.startDate
                         + '&date_to=' + this.filter.endDate + userId,
                     method: 'GET',
                     responseType: 'blob',

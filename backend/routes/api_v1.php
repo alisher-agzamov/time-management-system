@@ -33,13 +33,13 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::delete('user/{user}', 'Api\V1\UserController@delete')->name('users.delete');
 
     Route::get('roles', 'Api\V1\RoleController@index')->name('roles.index');
-    Route::post('user/create', 'Api\V1\AuthController@signup');
+    Route::post('user', 'Api\V1\AuthController@signup');
 });
 
 Route::group(['middleware' => ['auth:api', 'can:tasks']], function() {
     Route::get('tasks', 'Api\V1\TaskController@index')->name('tasks.index');
+    Route::get('tasks/export', 'Api\V1\TaskController@export')->name('tasks.export');
     Route::get('tasks/{task}', 'Api\V1\TaskController@get')->name('tasks.get');
-    Route::get('tasks/{id}/export', 'Api\V1\TaskController@export')->name('tasks.export');
     Route::post('tasks', 'Api\V1\TaskController@store')->name('tasks.store');
     Route::put('tasks/{task}', 'Api\V1\TaskController@update')->name('tasks.update');
     Route::delete('tasks/{task}', 'Api\V1\TaskController@delete')->name('tasks.delete');
