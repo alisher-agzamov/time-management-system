@@ -14,7 +14,7 @@ class DeleteUserRequest extends FormRequest
     public function authorize()
     {
         return $this->route('user')
-            ->canDelete($this->user());
+            ->canBeDeletedBy($this->user());
     }
 
     /**

@@ -39,7 +39,7 @@ class UpdateUserRequest extends FormRequest
             return false;
         }
 
-        if(!$user->canEdit($this->user())) {
+        if(!$user->canBeEditedBy($this->user())) {
             return false;
         }
 
@@ -48,7 +48,7 @@ class UpdateUserRequest extends FormRequest
             return true;
         }
 
-        return $user->canEditRole($this->user());
+        return $user->roleCanBeEditedBy($this->user());
     }
 
     /**

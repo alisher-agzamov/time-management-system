@@ -1,11 +1,8 @@
 <?php
 
-namespace Tests\Feature\Api\V1\Requests;
+namespace Tests\Unit\Requests;
 
-use App\User;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

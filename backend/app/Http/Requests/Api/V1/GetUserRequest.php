@@ -29,7 +29,7 @@ class GetUserRequest extends FormRequest
     {
         $user = User::find($this->getTargetUserId());
 
-        return $user && $user->canRead($this->user());
+        return $user && $user->canBeReadBy($this->user());
     }
 
     /**

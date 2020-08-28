@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api\V1\Requests;
+namespace Tests\Unit\Requests;
 
 use App\User;
 use Illuminate\Http\Response;

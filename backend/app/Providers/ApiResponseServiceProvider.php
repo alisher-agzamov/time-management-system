@@ -45,7 +45,9 @@ class ApiResponseServiceProvider extends ServiceProvider
             ], 204);
         });
 
-        Response::macro('accessDenied', function ($data = 'exceptions.access_denied') {
+        Response::macro(
+
+            'accessDenied', function ($data = 'exceptions.access_denied') {
             return Response::json([
                 'status'    => 'ERROR',
                 'error'   => __($data)

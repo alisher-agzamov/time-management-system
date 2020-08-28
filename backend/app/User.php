@@ -63,7 +63,7 @@ class User extends Authenticatable
      * @param $user
      * @return bool
      */
-    public function canRead($user)
+    public function canBeReadBy($user)
     {
         return $user->hasRole('admin')
             || $user->hasRole('manager')
@@ -75,7 +75,7 @@ class User extends Authenticatable
      * @param $user
      * @return bool
      */
-    public function canEdit($user)
+    public function canBeEditedBy($user)
     {
         return $user->hasRole('admin')
             || $user->hasRole('manager')
@@ -87,16 +87,16 @@ class User extends Authenticatable
      * @param $user
      * @return bool
      */
-    public function canEditRole($user)
+    public function roleCanBeEditedBy($user)
     {
         return $user->hasRole('admin');
     }
 
     /**
-     * Does the current user have enough permissions to delete the user
+     * Does the current user can be edited by provided user
      * @return bool
      */
-    public function canDelete($user)
+    public function canBeDeletedBy($user)
     {
         // User cannot delete himself
         if($user->id == $this->id) {
@@ -190,7 +190,7 @@ class User extends Authenticatable
         // Assign a custom role
         if(!empty($data['role'])
             && Auth::user()
-            && $this->canEditRole(Auth::user())) {
+            && $this->roleCanBeEditedBy(Auth::user())) {
             $role = $data['role'];
         }
 

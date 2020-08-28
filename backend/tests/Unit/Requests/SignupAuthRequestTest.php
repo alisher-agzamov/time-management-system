@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Feature\Api\V1\Requests;
+namespace Tests\Unit\Requests;
 
-use http\Client\Curl\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;

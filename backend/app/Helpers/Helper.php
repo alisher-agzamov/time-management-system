@@ -18,11 +18,11 @@ class Helper
         $duration = [];
 
         if($hours) {
-            $duration[] = $hours . 'h';
+            $duration[] = $hours . __('helpers.h');
         }
 
         if($minutes) {
-            $duration[] = $minutes . 'm';
+            $duration[] = $minutes . __('helpers.m');
         }
 
         return implode(' ', $duration);
