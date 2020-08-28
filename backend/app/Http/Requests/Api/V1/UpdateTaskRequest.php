@@ -15,7 +15,7 @@ class UpdateTaskRequest extends FormRequest
     public function authorize()
     {
         return $this->route('task')
-            ->canEdit($this->user());
+            ->canBeEditedBy($this->user());
     }
 
     /**

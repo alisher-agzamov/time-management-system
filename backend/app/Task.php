@@ -30,7 +30,7 @@ class Task extends Model
      * @param $user
      * @return bool
      */
-    public function canRead($user)
+    public function canBeReadBy($user)
     {
         return $user->hasRole('admin')
             || $this->user_id == $user->id;
@@ -41,7 +41,7 @@ class Task extends Model
      * @param $user
      * @return bool
      */
-    public function canEdit($user)
+    public function canBeEditedBy($user)
     {
         return $user->hasRole('admin')
             || $this->user_id == $user->id;
@@ -52,7 +52,7 @@ class Task extends Model
      * @param $user
      * @return bool
      */
-    public function canDelete($user)
+    public function canBeDeletedBy($user)
     {
         return $user->hasRole('admin')
             || $this->user_id == $user->id;

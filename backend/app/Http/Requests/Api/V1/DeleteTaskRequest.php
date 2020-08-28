@@ -15,7 +15,7 @@ class DeleteTaskRequest extends FormRequest
     public function authorize()
     {
         return $this->route('task')
-            ->canDelete($this->user());
+            ->canBeDeletedBy($this->user());
     }
 
     /**
