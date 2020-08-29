@@ -6,6 +6,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -53,25 +54,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof ModelNotFoundException) {
+        if ($exception instanceof ModelNotFoundException
+            || $exception instanceof UserNotFoundException
+            || $exception instanceof NotFoundHttpException) {
             return response()->notFound();
-        }
-        elseif ($exception instanceof UserNotFoundException) {
-            return response()->notFound();
-        }
-        elseif ($exception instanceof AccessDeniedException) {
-            return response()->accessDenied();
         }
         elseif ($exception instanceof CannotBeExecutedException) {
             return response()->cannotBeExecuted();
         }
-        elseif ($exception instanceof AuthenticationException) {
-            return response()->accessDenied();
-        }
-        elseif ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
-            return response()->accessDenied();
-        }
-        elseif ($exception instanceof AccessDeniedHttpException) {
+        elseif ($exception instanceof AccessDeniedException
+            || $exception instanceof AuthenticationException
+            || $exception instanceof \Illuminate\Auth\Access\AuthorizationException
+            || $exception instanceof AccessDeniedHttpException) {
             return response()->accessDenied();
         }
 
