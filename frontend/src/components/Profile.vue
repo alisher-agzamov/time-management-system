@@ -58,11 +58,6 @@
                 user: this.$store.state.user
             };
         },
-        created: function () {
-            if(!this.$store.state.isAuthenticated) {
-                this.$router.push('/');
-            }
-        },
         computed: {
             hours: {
                 get: function () {

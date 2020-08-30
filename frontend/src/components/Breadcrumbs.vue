@@ -41,17 +41,21 @@
                 switch (this.$route.name) {
                     case'Index':
                     case'Home':
-                        this.list = [];
-                        this.addToList(this.$t("navigation.home"), null, {});
-                        break;
+                      this.list = [];
+                      this.addToList(this.$t("navigation.home"), null, {});
+                      break;
 
-                      case'Login':
-                        this.addToList(this.$t("navigation.login"), null, {});
-                        break;
+                    case'Login':
+                      this.addToList(this.$t("navigation.login"), null, {});
+                      break;
 
-                      case'Signup':
-                        this.addToList(this.$t("navigation.signup"), null, {});
-                        break;
+                    case'Signup':
+                      this.addToList(this.$t("navigation.signup"), null, {});
+                      break;
+
+                    case'Profile':
+                      this.addToList(this.$t("navigation.profile"), null, {});
+                      break;
 
                     case'Tasks':
                         this.addToList(this.$t("navigation.tasks"), null, {});

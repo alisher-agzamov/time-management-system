@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from "../services/store"
+
 import Index from '@/components/Index'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
-import Dashboard from '@/components/Dashboard'
 import Logout from '@/components/Logout'
 import Profile from '@/components/Profile'
 import Users from '@/components/Users'
@@ -17,12 +18,11 @@ import ShowUser from '@/components/ShowUser'
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     { path: '/', name: 'Index', component: Index },
     { path: '/login', name: 'Login', component: Login },
     { path: '/signup', name: 'Signup', component: Signup },
-    { path: '/dashboard', name: 'Dashboard', component: Dashboard },
     { path: '/tasks', name: 'Tasks', component: Tasks },
     { path: '/tasks/create', name: 'CreateTask', component: CreateTask },
     { path: '/tasks/:id', name: 'ShowTask', component: ShowTask },
@@ -38,4 +38,47 @@ export default new Router({
     { path: '/users/:user_id/tasks/:id/edit', name: 'EditUserTask', component: EditTask },
     { path: '/users/:id', name: 'ShowUser', component: ShowUser }
   ]
-})
+});
+
+router.beforeEach((to, from, next) => {
+
+  if(!['Index', 'Login', 'Signup'].includes(to.name)
+    && !store.state.isAuthenticated) {
+
+    return next({ name: 'Login' });
+  }
+
+  if(['Login', 'Signup'].includes(to.name)
+    && store.state.isAuthenticated) {
+
+    return next({ name: 'Index' });
+  }
+
+  if(['Tasks', 'CreateTask', 'ShowTask', 'EditTask'].includes(to.name)
+    && !['admin', 'user'].includes(store.state.user.role)) {
+
+    return next({ name: 'Index' });
+  }
+
+  if(['UserTasks', 'UserTasksCreate', 'ShowUserTask', 'EditUserTask'].includes(to.name)
+    && !['admin'].includes(store.state.user.role)) {
+
+    return next({ name: 'Index' });
+  }
+
+  if(['Users', 'CreateUser', 'ShowUser', 'EditUser'].includes(to.name)
+    && !['admin', 'manager'].includes(store.state.user.role)) {
+
+    return next({ name: 'Index' });
+  }
+
+  if(['ShowTask', 'EditTask', 'ShowUserTask', 'EditUserTask', 'ShowUser', 'EditUser'].includes(to.name)
+    && !to.params.id) {
+
+    return next({ name: from.name});
+  }
+
+  return next();
+});
+
+export default router;

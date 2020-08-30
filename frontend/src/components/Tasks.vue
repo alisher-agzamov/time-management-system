@@ -58,7 +58,7 @@
         <thead class="thead-light">
         <tr>
           <th scope="col">{{index}}</th>
-          <th scope="col" colspan="2">{{renderDuration(items.total_duration)}}</th>
+          <th scope="col" colspan="2">{{items.total_duration | asDuration}}</th>
         </tr>
         </thead>
 
@@ -67,7 +67,7 @@
             <router-link v-if="!isAdminAction" :class="renderItemClass(items.covered_day_hours)" :to="{ name: 'ShowTask', params: { id: item.id }}">{{ item.title }}</router-link>
             <router-link v-else :class="renderItemClass(items.covered_day_hours)" :to="{ name: 'ShowUserTask', params: { id: item.id, user_id: $route.params.id }}">{{ item.title }}</router-link>
           </td>
-          <td>{{renderDuration(item.duration)}}</td>
+          <td>{{item.duration | asDuration}}</td>
           <td>
             <router-link
               :to="{ name: 'EditTask', params: { id: item.id }}">
@@ -90,11 +90,6 @@
     import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 
     export default {
-        created: function () {
-            if(!['admin', 'user'].includes(this.$store.state.user.role)) {
-                this.$router.push('/');
-            }
-        },
         data() {
             return {
                 isAdminAction: false, // is the current action doing under admin
@@ -146,10 +141,16 @@
             loadTasks: function() {
                 this.$Progress.start();
 
-                let userId = !this.isAdminAction ? '' : '&user_id=' + this.user.id;
+                let params = {
+                    date_from: this.filter.startDate,
+                    date_to: this.filter.endDate
+                };
 
-                this.$http.get('tasks?date_from=' + this.filter.startDate
-                    + '&date_to=' + this.filter.endDate + userId)
+                if(this.isAdminAction) {
+                    params.user_id = this.user.id;
+                }
+
+                this.$http.get('tasks', { params: params })
                     .then(response => {
                         this.$Progress.finish();
                         this.tasks = response.data.result;
@@ -189,11 +190,19 @@
                     });
             },
             exportTasks: function() {
-                let userId = !this.isAdminAction ? '' : '&user_id=' + this.user.id;
+
+                let params = {
+                    date_from: this.filter.startDate,
+                    date_to: this.filter.endDate
+                };
+
+                if(this.isAdminAction) {
+                    params.user_id = this.user.id;
+                }
 
                 this.$http({
-                    url: 'tasks/export?date_from=' + this.filter.startDate
-                        + '&date_to=' + this.filter.endDate + userId,
+                    url: 'tasks/export',
+                    params: params,
                     method: 'GET',
                     responseType: 'blob',
                 }).then((response) => {

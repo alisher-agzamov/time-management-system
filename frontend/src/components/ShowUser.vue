@@ -17,7 +17,7 @@
         <strong>{{ $t("show_user.form_field_role") }}:</strong> {{user.role}}
       </div>
       <div>
-        <strong>{{ $t("show_user.form_field_preferred_working_hours") }}:</strong> {{renderDuration(user.preferred_working_hour_per_day)}}
+        <strong>{{ $t("show_user.form_field_preferred_working_hours") }}:</strong> {{user.preferred_working_hour_per_day | asDuration}}
       </div>
 
       <div class="mt-3">
@@ -49,14 +49,6 @@
 <script>
     export default {
         created: function () {
-            if(!['admin', 'manager'].includes(this.$store.state.user.role)) {
-                this.$router.push('/');
-            }
-
-            if(!this.$route.params.id) {
-                this.$router.push('/users');
-            }
-
             this.$store.state.page_title = '';
         },
         data() {

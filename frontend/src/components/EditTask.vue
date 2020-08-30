@@ -91,14 +91,6 @@
             };
         },
         created: function () {
-            if(!['admin', 'user'].includes(this.$store.state.user.role)) {
-                this.$router.push('/');
-            }
-
-            if(!this.$route.params.id) {
-                this.$router.push('/tasks');
-            }
-
             this.$store.state.page_title = '';
         },
         mounted() {

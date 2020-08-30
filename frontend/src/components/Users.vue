@@ -53,11 +53,6 @@
 
 <script>
     export default {
-        created: function () {
-            if(!['admin', 'manager'].includes(this.$store.state.user.role)) {
-                this.$router.push('/');
-            }
-        },
         data() {
             return {
                 showNotification: false,

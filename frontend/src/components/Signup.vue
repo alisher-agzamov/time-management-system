@@ -74,11 +74,6 @@
                 }
             };
         },
-        created: function () {
-            if(this.$store.state.isAuthenticated) {
-                this.$router.push('dashboard');
-            }
-        },
         computed: {
             hours: {
                 get: function () {

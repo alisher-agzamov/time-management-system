@@ -6,7 +6,6 @@
     "page_title": "Time Management System",
     "login": "Login",
     "signup": "Signup",
-    "dashboard": "Dashboard",
     "tasks": "My Tasks",
     "user_tasks": "Tasks",
     "users": "Users",
@@ -78,9 +77,6 @@
     "deletion_confirm": "Do you really want to delete?",
     "button_edit": "Edit",
     "button_delete": "Delete"
-  },
-  "dashboard": {
-    "page_title": "Dashboard"
   },
   "users": {
     "page_title": "Users",

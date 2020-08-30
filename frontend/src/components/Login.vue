@@ -48,11 +48,6 @@
                 }
             };
         },
-        created: function () {
-            if(this.$store.state.isAuthenticated) {
-                this.$router.push('dashboard');
-            }
-        },
         computed: {
             checkForm: function (e) {
 

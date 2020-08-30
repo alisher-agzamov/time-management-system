@@ -43,14 +43,32 @@ const i18n = new VueI18n({
   messages: Object.assign(languages)
 });
 
+// Create a new filter to show duration
+Vue.filter("asDuration", function(minutes) {
+  minutes = parseInt(minutes);
+
+  let hours = parseInt(minutes / 60);
+  minutes = minutes - hours * 60;
+
+  let duration = [];
+  if(hours) {
+    duration.push(hours + i18n.t("tasks.hour_prefix"));
+  }
+
+  if(minutes) {
+    duration.push(minutes + i18n.t("tasks.minute_prefix"));
+  }
+
+  return duration.join(' ');
+});
+
+store.commit('initialiseStore');
+
 window.app = new Vue({
   el: '#app',
   router,
   template: '<App/>',
   components: { App },
   store: store,
-  i18n,
-  beforeCreate() {
-    this.$store.commit('initialiseStore');
-  }
+  i18n
 });

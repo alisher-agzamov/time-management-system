@@ -7,10 +7,6 @@
 <script>
     export default {
         created: function () {
-            if(!this.$store.state.isAuthenticated) {
-                this.$router.push('/');
-            }
-
             this.$Progress.start();
             this.$http.get('auth/logout').then(response => {
                 this.$Progress.finish();

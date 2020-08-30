@@ -75,14 +75,6 @@
             };
         },
         created: function () {
-            if(!['admin', 'manager'].includes(this.$store.state.user.role)) {
-                this.$router.push('/');
-            }
-
-            if(!this.$route.params.id) {
-                this.$router.push('/users');
-            }
-
             this.$store.state.page_title = '';
         },
         computed: {

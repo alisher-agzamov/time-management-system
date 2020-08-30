@@ -17,7 +17,7 @@
         <strong>{{ $t("show_task.form_field_description") }}:</strong> {{task.description}}
       </div>
       <div>
-        <strong>{{ $t("show_task.form_field_duration") }}:</strong> {{renderDuration(task.duration)}}
+        <strong>{{ $t("show_task.form_field_duration") }}:</strong> {{task.duration | asDuration}}
       </div>
 
       <div class="mt-3">
@@ -48,14 +48,6 @@
 <script>
     export default {
         created: function () {
-            if(!['admin', 'user'].includes(this.$store.state.user.role)) {
-                this.$router.push('/');
-            }
-
-            if(!this.$route.params.id) {
-                this.$router.push('/tasks');
-            }
-
             this.$store.state.page_title = '';
         },
         data() {

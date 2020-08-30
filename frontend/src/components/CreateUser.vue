@@ -87,11 +87,6 @@
                 roles: []
             };
         },
-        created: function () {
-            if(!['admin', 'manager'].includes(this.$store.state.user.role)) {
-                this.$router.push('/');
-            }
-        },
         mounted() {
             this.loadRoles();
         },

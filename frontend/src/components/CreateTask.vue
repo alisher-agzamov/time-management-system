@@ -92,11 +92,6 @@
                 user: this.$store.state.user
             };
         },
-        created: function () {
-            if(!this.$store.state.isAuthenticated) {
-                this.$router.push('/');
-            }
-        },
         mounted: function() {
             if(this.$route.params.id) {
                 this.isAdminAction = true;
