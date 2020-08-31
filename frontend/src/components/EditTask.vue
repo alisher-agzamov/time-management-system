@@ -87,6 +87,14 @@
                     format: 'YYYY-MM-DD',
                     useCurrent: false,
                     maxDate: new Date()
+                },
+                rules: {
+                    task: {
+                        title: ['required', 'max:255'],
+                        description: ['required'],
+                        date: ['required'],
+                        duration: ['required']
+                    }
                 }
             };
         },
@@ -128,36 +136,6 @@
                 set: function (newValue) {
                     this.task.duration = this.hours * 60 + parseInt(newValue);
                 }
-            },
-            checkForm: function (e) {
-
-                this.errors = [];
-
-                if(!this.autoCheckForm) {
-                    return this.errors;
-                }
-
-                // Check name
-                if (!this.task.title.trim()) {
-                    this.errors.push(this.$t("edit_task.form_field_title_error"));
-                }
-
-                // Check description
-                if (!this.task.description.trim()) {
-                    this.errors.push(this.$t("edit_task.form_field_description_error"));
-                }
-
-                // Check date
-                if (!this.task.date.trim()) {
-                    this.errors.push(this.$t("edit_task.form_field_date_error"));
-                }
-
-                // Check duration
-                if (!this.task.duration) {
-                    this.errors.push(this.$t("edit_task.form_field_duration_error"));
-                }
-
-                return this.errors;
             }
         },
         methods: {

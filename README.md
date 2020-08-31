@@ -4,6 +4,10 @@
 - [Backend](#backend)
 - [Frontend](#frontend)
 - [Postman collection](#postman-collection)
+- [Unit tests](#unit-tests)
+- [e2e tests](#e2e-tests)
+- [Demo](#demo)
+- [API Documentation](#api-documentation)
 
 
 ## Project requirements
@@ -35,5 +39,24 @@ The backend was implemented based on the [Laravel PHP framework](https://laravel
 The frontend was implemented based on the [Vue.js Javascript Framework](https://vuejs.org/) and [Bootstrap](https://getbootstrap.com/).
 
 ## Postman Collection
-To have a convenient way directly test API there was created Postman collection that contains all available endpoints. 
+To have a convenient way directly test API there was created [Postman collection](https://learning.postman.com/docs/sending-requests/intro-to-collections/) that contains all available endpoints. 
 The collection can be found in the root directory. Also, the repository contains a JSON file with the prepopulated development environment variables.
+
+## Unit tests
+The backend code is covered by unit tests.
+
+## E2e tests
+I started coverage of the the project by e2e tests using the [Cypress](http://cypress.io) framework.
+
+## Demo
+The demo project can be found by the [link](https://time-management-system.adnet.uz/).
+
+Email | Password | Role
+------------ | ------------- | -------------
+user@test.com | userPass | user
+manager@test.com | managerPass | manager
+admin@test.com | adminPass | admin
+
+## API Documentation
+The API documentation is generated using the [APIdoc](https://apidocjs.com/) tool based on API annotations in the source code.
+It can be found in the apidoc directory or by [the link](https://time-management-system-apidoc.adnet.uz/). 

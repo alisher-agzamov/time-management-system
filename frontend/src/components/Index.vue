@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>{{ $t("index.page_title") }}</h1>
-
+    <div class="w-50 m-auto text-left">
+      {{ $t("index.content") }}
+    </div>
   </div>
 </template>
 

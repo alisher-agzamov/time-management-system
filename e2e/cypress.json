@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://localhost:8080",
   "env": {
-    "apiUrl": "http://laravel.loc/api/v1/"
+    "apiUrl": "https://time-management-system-api.adnet.uz/api/v1/"
   }
 }

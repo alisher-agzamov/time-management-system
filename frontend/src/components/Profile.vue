@@ -15,7 +15,7 @@
 
       <div class="form-group">
         <label for="register-name">{{ $t("profile.form_field_name") }}: <span class="required">*</span></label>
-        <input v-model="user.name" type="text" class="form-control" id="register-name" :placeholder="$t('profile.form_field_name_placeholder')">
+        <input v-model="user.name" v-on:keyup.enter="updateUserProfile" type="text" class="form-control" id="register-name" :placeholder="$t('profile.form_field_name_placeholder')">
       </div>
 
       <div class="form-group">
@@ -55,7 +55,13 @@
                 autoCheckForm: false,
                 errors: [],
                 serverErrors: [],
-                user: this.$store.state.user
+                user: this.$store.state.user,
+                rules: {
+                    user: {
+                        name: ['required'],
+                        preferred_working_hour_per_day: ['required']
+                    }
+                }
             };
         },
         computed: {
@@ -83,26 +89,6 @@
                     this.user.preferred_working_hour_per_day = this.hours * 60 + parseInt(newValue);
                 }
             },
-            checkForm: function (e) {
-
-                this.errors = [];
-
-                if(!this.autoCheckForm) {
-                    return this.errors;
-                }
-
-                // Check name
-                if (!this.user.name.trim()) {
-                    this.errors.push(this.$t("profile.form_field_name_error"));
-                }
-
-                // Check preferred working hours
-                if (!this.user.preferred_working_hour_per_day) {
-                    this.errors.push(this.$t("profile.form_field_preferred_working_hours_error"));
-                }
-
-                return this.errors;
-            }
         },
         methods: {
             async updateUserProfile() {
@@ -151,10 +137,6 @@
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     })
-            },
-            validEmail: function (email) {
-                var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(email);
             }
         },
         mounted() {

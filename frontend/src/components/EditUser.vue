@@ -71,7 +71,14 @@
                     email: '',
                     preferred_working_hour_per_day: 0
                 },
-                roles: []
+                roles: [],
+                rules: {
+                    user: {
+                        name: ['required'],
+                        email: ['required', 'email'],
+                        preferred_working_hour_per_day: ['required']
+                    }
+                }
             };
         },
         created: function () {
@@ -101,34 +108,6 @@
                 set: function (newValue) {
                     this.user.preferred_working_hour_per_day = this.hours * 60 + parseInt(newValue);
                 }
-            },
-            checkForm: function (e) {
-
-                this.errors = [];
-
-                if(!this.autoCheckForm) {
-                    return this.errors;
-                }
-
-                // Check name
-                if (!this.user.name.trim()) {
-                    this.errors.push(this.$t("edit_user.form_field_name_error"));
-                }
-
-                // Check email
-                if (!this.user.email) {
-                    this.errors.push(this.$t("edit_user.form_field_email_error"));
-                }
-                else if (!this.validEmail(this.user.email)) {
-                    this.errors.push(this.$t("edit_user.form_field_email_error_correct"));
-                }
-
-                // Check preferred working hours
-                if (!this.user.preferred_working_hour_per_day) {
-                    this.errors.push(this.$t("edit_user.form_field_preferred_working_hours_error"));
-                }
-
-                return this.errors;
             }
         },
         methods: {

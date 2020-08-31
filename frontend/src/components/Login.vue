@@ -45,33 +45,14 @@
                 user: {
                     email: '',
                     password: ''
+                },
+                rules: {
+                    user: {
+                        email: ['required', 'email'],
+                        password: ['required', 'min:6']
+                    }
                 }
             };
-        },
-        computed: {
-            checkForm: function (e) {
-
-                this.errors = [];
-
-                if(!this.autoCheckForm) {
-                    return this.errors;
-                }
-
-                // Check email
-                if (!this.user.email.trim()) {
-                    this.errors.push(this.$t("login.form_field_email_error"));
-                }
-                else if (!this.validEmail(this.user.email)) {
-                    this.errors.push(this.$t("login.form_field_email_error_correct"));
-                }
-
-                // Check password
-                if (!this.user.password.trim()) {
-                    this.errors.push(this.$t("login.form_field_password_error"));
-                }
-
-                return this.errors;
-            }
         },
         methods: {
             async doLogin() {
@@ -128,10 +109,6 @@
                     }, (response) => {
                         this.$Progress.fail()
                     });
-            },
-            validEmail: function (email) {
-                var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(email);
             }
         }
     }

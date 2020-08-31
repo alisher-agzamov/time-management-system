@@ -84,7 +84,15 @@
                     preferred_working_hour_per_day: 0,
                     role: 'user'
                 },
-                roles: []
+                roles: [],
+                rules: {
+                    user: {
+                        name: ['required'],
+                        email: ['required', 'email'],
+                        password: ['required', 'min:6', 'confirmed'],
+                        preferred_working_hour_per_day: ['required']
+                    }
+                }
             };
         },
         mounted() {
@@ -114,47 +122,6 @@
                 set: function (newValue) {
                     this.user.preferred_working_hour_per_day = this.hours * 60 + parseInt(newValue);
                 }
-            },
-            checkForm: function (e) {
-
-                this.errors = [];
-
-                if(!this.autoCheckForm) {
-                    return this.errors;
-                }
-
-                // Check name
-                if (!this.user.name.trim()) {
-                    this.errors.push(this.$t("create_user.form_field_name_error"));
-                }
-
-                // Check email
-                if (!this.user.email) {
-                    this.errors.push(this.$t("create_user.form_field_email_error"));
-                }
-                else if (!this.validEmail(this.user.email)) {
-                    this.errors.push(this.$t("create_user.form_field_email_error_correct"));
-                }
-
-                // Check password
-                if (!this.user.password.trim()) {
-                    this.errors.push(this.$t("create_user.form_field_password_error"));
-                }
-
-                // Check password confirmation
-                if (!this.user.password_confirmation.trim()) {
-                    this.errors.push(this.$t("create_user.form_field_password_confirmation_error"));
-                }
-                else if (this.user.password != this.user.password_confirmation) {
-                    this.errors.push(this.$t("create_user.form_field_password_confirmation_error"));
-                }
-
-                // Check preferred working hours
-                if (!this.user.preferred_working_hour_per_day) {
-                    this.errors.push(this.$t("create_user.form_field_preferred_working_hours_error"));
-                }
-
-                return this.errors;
             }
         },
         methods: {
@@ -193,10 +160,6 @@
                     }, (response) => {
                         this.handleApiErrors(response.data);
                     })
-            },
-            validEmail: function (email) {
-                var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(email);
             }
         }
     }

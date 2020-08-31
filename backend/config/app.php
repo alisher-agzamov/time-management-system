@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://laravel.loc'),
+    'url' => env('APP_URL', 'https://time-management-system-api.adnet.uz'),
 
     'asset_url' => env('ASSET_URL', null),
 

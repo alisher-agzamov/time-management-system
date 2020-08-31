@@ -32,7 +32,12 @@ Vue.use(VueProgressBar, {
 
 // Mixin methods
 Vue.mixin({
-  methods: mixin,
+  methods: mixin.methods,
+});
+
+// Mixin computed
+Vue.mixin({
+  computed: mixin.computed,
 });
 
 // Init locales

@@ -297,14 +297,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/{{api_version}}/tasks/me/export?date_from=2020-08-01&date_to=2020-08-30",
+							"raw": "{{url}}/{{api_version}}/tasks/export?date_from=2020-08-01&date_to=2020-08-30",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"{{api_version}}",
 								"tasks",
-								"me",
 								"export"
 							],
 							"query": [
@@ -370,6 +369,11 @@
 								{
 									"key": "password_confirmation",
 									"value": "{{user_1_password}}",
+									"type": "text"
+								},
+								{
+									"key": "preferred_working_hour_per_day",
+									"value": "10",
 									"type": "text"
 								}
 							]
@@ -557,7 +561,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{url}}/{{api_version}}/user/me?name=User 2name&preferred_working_hour_per_day=60",
+							"raw": "{{url}}/{{api_version}}/user/me?name=Updated&email=alisher4@test.com&preferred_working_hour_per_day=60",
 							"host": [
 								"{{url}}"
 							],
@@ -569,16 +573,20 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "User 2name"
+									"value": "Updated"
 								},
 								{
 									"key": "email",
-									"value": "blah3@test.com",
-									"disabled": true
+									"value": "alisher4@test.com"
 								},
 								{
 									"key": "preferred_working_hour_per_day",
 									"value": "60"
+								},
+								{
+									"key": "role",
+									"value": "admin",
+									"disabled": true
 								}
 							]
 						}
@@ -663,6 +671,89 @@
 								"{{api_version}}",
 								"user",
 								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Get all roles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{api_version}}/roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Status",
+			"item": [
+				{
+					"name": "API status check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Requested-With",
+								"type": "text",
+								"value": "XMLHttpRequest"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{api_version}}/status",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"status"
 							]
 						}
 					},
